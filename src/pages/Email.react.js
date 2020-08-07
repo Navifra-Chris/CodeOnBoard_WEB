@@ -11,7 +11,7 @@ import {
   List,
   Form,
 } from "tabler-react";
-import SiteWrapper from "../SiteWrapper.react";
+import SiteWrapper from "../apps/main/SiteWrapper.react";
 
 function Email() {
   return (

@@ -4,14 +4,19 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 import "./index.css";
-import "./c3jscustom.css";
-
-import App from "./App.react";
+import { createStore } from 'redux'
+import { Provider } from 'react-redux';
+import rootReducer from './apps/store/reducers/rootReducer'
+import App from "./apps/App.react";
 
 const rootElement = document.getElementById("root");
 
 if (rootElement) {
-  ReactDOM.render(<App />, rootElement);
+  ReactDOM.render(
+  <Provider store={createStore(rootReducer)}>
+    <App />
+  </Provider>
+  , rootElement);
 } else {
   throw new Error("Could not find root element to mount to!");
 }
