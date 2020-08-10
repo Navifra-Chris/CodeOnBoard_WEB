@@ -111,7 +111,7 @@ const navBarItems: Array<navItem> = [
 ];
 
 const accountDropdownProps = {
-  avatarURL: "./demo/faces/female/25.jpg",
+  avatarURL: "",
   name: "Jane Pearson",
   description: "Administrator",
   options: [
@@ -130,7 +130,7 @@ class SiteWrapper extends React.Component<Props, State> {
     notificationsObjects: [
       {
         unread: true,
-        avatarURL: "demo/faces/male/41.jpg",
+        avatarURL: "",
         message: (
           <React.Fragment>
             <strong>Nathan</strong> pushed new commit: Fix page load performance
@@ -141,7 +141,7 @@ class SiteWrapper extends React.Component<Props, State> {
       },
       {
         unread: true,
-        avatarURL: "demo/faces/female/1.jpg",
+        avatarURL: "",
         message: (
           <React.Fragment>
             <strong>Alice</strong> started new task: Tabler UI design.
@@ -151,7 +151,7 @@ class SiteWrapper extends React.Component<Props, State> {
       },
       {
         unread: false,
-        avatarURL: "demo/faces/female/18.jpg",
+        avatarURL: "",
         message: (
           <React.Fragment>
             <strong>Rose</strong> deployed new version of NodeJS REST Api // V3
@@ -173,7 +173,7 @@ class SiteWrapper extends React.Component<Props, State> {
         headerProps={{
           href: "/",
           alt: "Code On Board",
-          imageURL: "./demo/brand/tabler.svg",
+          imageURL: "",
           notificationsTray: {
             notificationsObjects,
             markAllAsRead: () =>
