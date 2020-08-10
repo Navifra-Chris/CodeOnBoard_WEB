@@ -6,7 +6,7 @@ import {  GalleryCard } from "tabler-react";
 
 import SiteWrapper from "./SiteWrapper.react";
 import HomeImg from '../images/Home.jpeg'
-import './HomePage.css'
+import 'apps/main/HomePage.css'
 
 function Home() {
   return (
