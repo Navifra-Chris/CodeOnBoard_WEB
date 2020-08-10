@@ -2,44 +2,52 @@
 
 import * as React from "react";
 import axios from 'axios';
-import { Page, Grid, GalleryCard, Card, Button } from "tabler-react";
-
-import SiteWrapper from "./SiteWrapper.react";
-// import './HomePage.css'
- 
+import { useState } from "react"
+import { userSelector,useDispatch, useSelector } from "react-redux";
+import { Page, Grid, GalleryCard } from "tabler-react";
+import * as Action from "apps/store/actions/ProblemListPageAction";
+import SiteWrapper from "./SiteWrapper.react"; 
 
 function ProblemListPage(props) {
-  const [posts, setPosts] = React.useState([])
+  const dispatch = useDispatch();
+  const [posts, setPosts] = useState([]);
   const [SelectedProblemId, setSelectedProblemId] = React.useState(0)
   
   React.useEffect(() => {
-
+    console.log("====> userEffect")
 		axios
 		.get('http://203.246.112.32:8000/api/v1/problem/')
 		.then(response => {
-			
-			// console.log(response.data.results);
-			// dispatch(Actions.getProblemId(response.data.results));
+      dispatch(Action.getProblems(response.data.results));
+
 			setPosts(response.data.results);
-			// window.localStorage.setItem('ProblemId', response.data.results);
+			
     })
     .catch(error => {
       console.log(error);
     })
-  },posts);
+  },[dispatch]);
 
+  // const posts = useSelector(state => state.getProblems, [])
+  // console.log(posts)
   return(
+  
 
   <SiteWrapper>
+    {console.log("=====> render")}
     <Page.Content>
+      {/* {console.log("==>",posts)} */}
       <Grid.Row className="row-cards">
       {posts.map((problem) =>(
         <Grid.Col lg={3}>
           <GalleryCard className='p-0' >
-            <a onClick = {() =>{
-                console.log('==>click')
-                window.localStorage.setItem('SelectedProblemId', problem.id);
-              }}>
+            <a onClick = {() => {
+              console.log("onclick");
+              // dispatch(Action.setProblemIdAction(problem.id));
+              window.localStorage.setItem('selectedProblemId', problem.id);
+              console.log(window.localStorage.getItem('selectedProblemId'))
+              debugger;
+            }}>
               <GalleryCard.Image
                 className='mb-0'
                 src={problem.thumbnail}
