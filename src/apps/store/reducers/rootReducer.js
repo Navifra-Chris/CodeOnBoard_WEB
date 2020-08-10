@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import problemPageReducer from './ProblemPageReducer';
+import setProblemId from './setProblemId.reducer';
+import getProblems from './getProblems.reducer';
 
 const rootReducer = combineReducers({
-  problemPageReducer
+  setProblemId,
+  getProblems
 });
 
 export default rootReducer;
