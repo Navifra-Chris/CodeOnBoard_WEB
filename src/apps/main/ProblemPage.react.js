@@ -6,11 +6,15 @@ import { Nav, Page } from "tabler-react";
 import { useSelector } from "react-redux"
 import SiteWrapper from "./SiteWrapper.react";
 import { Document, Page as pdf_page} from "react-pdf";
+import problem from "../store/reducers/problem.reducer"
 
 function ProblemPage() {
-    const [problem, setProblem] = React.useState([])
-    const selectedId = window.localStorage.getItem('selectedProblemId')
-    console.log("====>", selectedId)
+    const selectedId = window.localStorage.getItem('selectedProblemId');
+    console.log("====>", selectedId);
+
+    const selected_nav_id = useSelector(state => state.problem.selected_nav_id, []);
+    console.log("===> selected nav id", selected_nav_id);
+    debugger;
     return(
         <SiteWrapper>
             <Page.Content>
