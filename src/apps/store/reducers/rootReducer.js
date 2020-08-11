@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import setProblemId from './setProblemId.reducer';
+import problem from './problem.reducer';
 import getProblems from './getProblems.reducer';
 
 const rootReducer = combineReducers({
-  setProblemId,
+  problem,
   getProblems
 });
 
