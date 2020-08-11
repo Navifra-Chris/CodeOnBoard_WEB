@@ -11,7 +11,6 @@ import SiteWrapper from "./SiteWrapper.react";
 function ProblemListPage(props) {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
-  const [SelectedProblemId, setSelectedProblemId] = React.useState(0)
   
   React.useEffect(() => {
     console.log("====> userEffect")
@@ -19,7 +18,6 @@ function ProblemListPage(props) {
 		.get('http://203.246.112.32:8000/api/v1/problem/')
 		.then(response => {
       dispatch(Action.getProblems(response.data.results));
-
 			setPosts(response.data.results);
 			
     })
