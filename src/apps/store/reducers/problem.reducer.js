@@ -8,9 +8,7 @@ const problem = (state = initState, action) => {
     switch(action.type){
         case CHANGE_NAV:
             console.log("=========> change nav", action)
-            return Object.assign({}, state, {
-                selected_nav_id: action.id
-            });
+            return {...state, selected_nav_id:action.id};
         default:
             console.log("=========> dafault", action)
             return state;
