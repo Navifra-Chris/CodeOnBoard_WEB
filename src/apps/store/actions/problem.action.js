@@ -4,7 +4,7 @@ export function changeNav(param){
     console.log("===> Change Nac ")
     return {
         type: CHANGE_NAV,
-        payload: param
+        id: param
     };
 }
 
