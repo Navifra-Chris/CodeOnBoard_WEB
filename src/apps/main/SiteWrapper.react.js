@@ -54,11 +54,11 @@ const navBarItems: Array<navItem> = [
     subItems: [
       {
         value: "모든 문제",
-        to: "/problems",
+        to: "/problem",
         LinkComponent: withRouter(NavLink),
       },
       { value: "내가 푼 문제",
-       to: "/problems/user/{user_id}",
+       to: "/problem/user/{user_id}",
         LinkComponent: withRouter(NavLink) },
       // {
       //   value: "Pricing Cards",
