@@ -3,12 +3,12 @@
 import * as React from "react";
 import axios from 'axios';
 import { useState } from "react"
-import { userSelector,useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Page, Grid, GalleryCard } from "tabler-react";
 import * as Action from "apps/store/actions/ProblemListPageAction";
 import SiteWrapper from "./SiteWrapper.react"; 
 
-function ProblemListPage(props) {
+function ProblemList(props) {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
   
@@ -26,11 +26,7 @@ function ProblemListPage(props) {
     })
   },[dispatch]);
 
-  // const posts = useSelector(state => state.getProblems, [])
-  // console.log(posts)
   return(
-  
-
   <SiteWrapper>
     {console.log("=====> render")}
     <Page.Content>
@@ -44,12 +40,11 @@ function ProblemListPage(props) {
               // dispatch(Action.setProblemIdAction(problem.id));
               window.localStorage.setItem('selectedProblemId', problem.id);
               console.log(window.localStorage.getItem('selectedProblemId'))
-              debugger;
             }}>
               <GalleryCard.Image
                 className='mb-0'
                 src={problem.thumbnail}
-                href={"problems/" + problem.id}
+                href={"problem/" + problem.id}
               />
             </a>
           </GalleryCard>        
@@ -62,4 +57,4 @@ function ProblemListPage(props) {
   
   )
   }
-export default ProblemListPage;
+export default ProblemList;
