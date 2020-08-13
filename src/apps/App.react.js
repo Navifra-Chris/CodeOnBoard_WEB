@@ -4,6 +4,7 @@ import Home from "./main/Home.react";
 import ProblemList from "./main/ProblemList.react"
 import Problem from "./main/problem/Problem.react"
 import * as problemNav from "./main/problem" 
+import login from "apps/login/login.react"
 import "tabler-react/dist/Tabler.css";
 
 function App(props: Props): React.Node {
@@ -14,11 +15,11 @@ function App(props: Props): React.Node {
           <Route exact path="/" component={Home} />
           <Route exact path="/problem" component={ProblemList} />
           <Route exact path="/problem/:id" component={Problem} />
-          <Route exact path="/submit/:id" component={problemNav.Submit} />
           <Route exact path="/replay/:id" component={problemNav.Replay} />
           <Route exact path="/match/:id" component={problemNav.match} />
           <Route exact path="/code/my/:id" component={problemNav.code} />
           <Route exact path="/matchlog/:id" component={problemNav.matchlog} />
+          <Route exact path="/login" component={login} />
         </Switch>
       </Router>
     </React.StrictMode>
