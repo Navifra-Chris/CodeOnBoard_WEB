@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import {  GalleryCard } from "tabler-react";
+import {  GalleryCard, Dropdown } from "tabler-react";
 
 import SiteWrapper from "./SiteWrapper.react";
 import HomeImg from '../images/Home.jpeg'
