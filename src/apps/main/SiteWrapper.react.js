@@ -112,8 +112,8 @@ const navBarItems: Array<navItem> = [
 
 const accountDropdownProps = {
   avatarURL: "",
-  name: "Jane Pearson",
-  description: "Administrator",
+  name: "Guest",
+  // description: "Administrator",
   options: [
     { icon: "user", value: "Profile" },
     { icon: "settings", value: "Settings" },
