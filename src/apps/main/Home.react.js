@@ -1,7 +1,7 @@
 // @flow
 
 import * as React from "react";
-
+import "../../../node_modules/tabler-react/dist/Tabler.css"
 import {  GalleryCard, Dropdown } from "tabler-react";
 
 import SiteWrapper from "./SiteWrapper.react";
