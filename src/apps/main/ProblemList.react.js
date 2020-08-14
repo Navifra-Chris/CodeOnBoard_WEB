@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { Page, Grid, GalleryCard } from "tabler-react";
 import SiteWrapper from "./SiteWrapper.react"; 
 
-function ProblemList(props) {
+function ProblemList() {
   const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
   
@@ -32,7 +32,7 @@ function ProblemList(props) {
       {posts.map((problem) =>(
         <Grid.Col lg={3}>
           <GalleryCard className='p-0' >
-            <a onClick = {() => {
+            <a href="!#" onClick = {() => {
               console.log("onclick");
               // dispatch(Action.setProblemIdAction(problem.id));
               window.localStorage.setItem('selectedProblemId', problem.id);
