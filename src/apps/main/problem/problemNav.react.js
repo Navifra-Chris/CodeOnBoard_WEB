@@ -1,12 +1,8 @@
 import { Nav, Grid } from "tabler-react";
-import { useSelector } from "react-redux"
 import * as React from "react";
 
 function ProblemNav(props) {
     // const selectedId = window.localStorage.getItem('userName'); Change "/codes/my" to "/codes/userName"
-
-    const selected_nav_id = useSelector(state => state.problem.selected_nav_id, []);
-    // console.log("===> selected nav id", selected_nav_id);
     
     return(
             <Grid.Row justifyContent="center">
