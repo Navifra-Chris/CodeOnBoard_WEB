@@ -16,9 +16,9 @@ function App(props: Props): React.Node {
           <Route exact path="/problem" component={ProblemList} />
           <Route exact path="/problem/:id" component={Problem} />
           <Route exact path="/replay/:id" component={problemNav.Replay} />
-          <Route exact path="/match/:id" component={problemNav.match} />
-          <Route exact path="/code/my/:id" component={problemNav.code} />
-          <Route exact path="/matchlog/:id" component={problemNav.matchlog} />
+          <Route exact path="/match/:id" component={problemNav.Match} />
+          <Route exact path="/code/my/:id" component={problemNav.Code} />
+          <Route exact path="/matchlog/:id" component={problemNav.Matchlog} />
           <Route exact path="/login" component={login} />
         </Switch>
       </Router>
