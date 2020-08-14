@@ -1,14 +1,31 @@
-import { CHANGE_NAV } from '../actions/problem.action';
+import { 
+    SUBMIT, 
+    GET_DESCRIPTION,
+    WRITE_CODE,
+    WIRTE_CODENAME,
+    SET_LANGUAGE,
+} from '../actions/problem.action';
 
 const initState = {
-    selected_nav_id : 0
+    isSubmit : false,
+    desc : null,
+    code : null,
+    codeName : null,
+    languageId : null
 }
 
 const problem = (state = initState, action) => {
     switch(action.type){
-        case CHANGE_NAV:
-            console.log("=========> change nav", action)
-            return {...state, selected_nav_id:action.id};
+        case SUBMIT:
+            return {...state, isSubmit:action.payload};
+        case GET_DESCRIPTION:
+            return {...state, desc:action.payload}
+        case WRITE_CODE:
+            return {...state, code:action.payload}
+        case WIRTE_CODENAME:
+            return {...state, codeName:action.payload}
+        case SET_LANGUAGE:
+            return {...state, languageId:action.payload}
         default:
             console.log("=========> dafault", action)
             return state;
