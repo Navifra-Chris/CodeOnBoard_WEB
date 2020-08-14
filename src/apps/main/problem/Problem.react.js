@@ -12,7 +12,11 @@ import * as Action from "apps/store/actions/problem.action";
 
 function Problem( {match} ) {
     // const selectedId = window.localStorage.getItem('userName'); Change "/codes/my" to "/codes/userName"
-    const selectedProblemId = window.localStorage.getItem("selectedProblemId")
+    const tmp = document.location.href.split("match/")
+    var problemId = window.localStorage.getItem("selectedProblemId")
+    if(tmp[1] !== problemId){
+        problemId = tmp[1]
+    }
     const dispatch = useDispatch();
     const problemIsSubmit = useSelector(state => state.problem.isSubmit, []);
     const problemDesc = useSelector(state => state.problem.desc, []);
@@ -25,7 +29,7 @@ function Problem( {match} ) {
 
     React.useEffect(() => {
         axios
-        .get(`https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/problem/${selectedProblemId}`,{})
+        .get(`https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/problem/${problemId}`,{})
         .then(response =>{
             dispatch(Action.getDescription(response.data.description))
             console.log("===> problem", response.data)
