@@ -27,7 +27,6 @@ const problem = (state = initState, action) => {
         case SET_LANGUAGE:
             return {...state, languageId:action.payload}
         default:
-            console.log("=========> dafault", action)
             return state;
     }
 }
