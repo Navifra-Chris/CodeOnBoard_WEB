@@ -4,6 +4,11 @@
   padding: 0px !important; 
 }
 
-.Problem-list-p-0{
+.p-0{
   padding: 0rem !important;
 }
+
+.m-2{
+  margin: 1rem;
+}
+
