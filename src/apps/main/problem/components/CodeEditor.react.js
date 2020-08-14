@@ -1,27 +1,35 @@
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import * as React from "react";
 import './CodeMirror.css';
-import { Grid, Button, Text } from 'tabler-react';
 import "./CodeEditor.css";
+import { Grid, Button } from 'tabler-react';
 import axios from "axios";
+import * as Action from "apps/store/actions/problem.action";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
+
 
 var header = {
   'Authorization' : 'jwt ' + window.localStorage.getItem('jwt_access_token')
 }
 
-
-
-
-
  
 function CodeEditor(props)  {
-    {console.log("===> Editor", props)}
+    
+    const dispatch = useDispatch();
+    const problemId = window.localStorage.getItem("selectedProblemId")
+    //const userId = window.localStorage.getItem("userId")
+    const userId = 1
     const mode = props.mode;
-    const [code, setCode] = React.useState(null)
-    const [codeName, setCodeName] = React.useState(null)
-    const [userId, setUserId] = React.useState(1)
-    const [languageId, setLanguageId] = React.useState(1)
-    const [problemId, setProblemId] = React.useState(1)
+    const { code, codeName, languageId } = useSelector(
+      state => ({
+        code: state.problem.code,
+        codeName: state.problem.codeName,
+        languageId: state.problem.languageId,
+      }),
+      shallowEqual
+    );
+    
+    {console.log("===> Editor", code, codeName)}
 
     let button;
     if(mode == "post"){
@@ -39,16 +47,14 @@ function CodeEditor(props)  {
         problem: problemId,
         name : codeName
       }
-      alert("post")
       console.log("Post data==>", data)
       axios
       .post("https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/code/", data) // TODO: header 추가
       .then(response =>{
-        console.log("complete", response)
-        alert("제출 완료")
+        dispatch(Action.submit(true))
       })
       .catch(error => {
-        alert("error!")
+        alert("제출 실패")
       })
     }
 
@@ -67,11 +73,14 @@ function CodeEditor(props)  {
         <React.Fragment >
           <Grid.Row justifyContent="center">
             <Grid.Col className="offsetSelect">
-              <select padding-bottom="10px">
+              <select value={languageId} padding-bottom="10px" 
+              onChange={(e) => {
+                dispatch(Action.setLanguage(e.target.value))
+              }}>
                 <option value="" selected disabled>Language</option>
-                <option value="python">Python</option>
-                <option value="cpp">C++</option>
-                <option value="c">C</option>
+                <option value={1}>Python</option>
+                <option value={2}>C</option>
+                <option value={3}>C++</option>
               </select>
             </Grid.Col>
             <Grid.Col>
@@ -84,7 +93,7 @@ function CodeEditor(props)  {
                 lineNumbers: true
               }}
               onChange={(editor, data, value) => {
-                setCode(value);
+                dispatch(Action.writeCode(value));
               }}
               />
             </Grid.Col>
@@ -94,7 +103,7 @@ function CodeEditor(props)  {
                   placeholder="Code Name" 
                   value={codeName} 
                   onChange={(e) => {
-                  setCodeName(e.target.value)
+                  dispatch(Action.writeCodeName(e.target.value));
                 }}/>
               </Grid>
               <Grid.Col className="pt-2">
