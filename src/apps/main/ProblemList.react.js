@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useState } from "react"
 import { useDispatch } from "react-redux";
 import { Page, Grid, GalleryCard } from "tabler-react";
-import * as Action from "apps/store/actions/ProblemListPageAction";
 import SiteWrapper from "./SiteWrapper.react"; 
 
 function ProblemList(props) {
@@ -17,9 +16,7 @@ function ProblemList(props) {
 		axios
 		.get('http://203.246.112.32:8000/api/v1/problem/')
 		.then(response => {
-      dispatch(Action.getProblems(response.data.results));
 			setPosts(response.data.results);
-			
     })
     .catch(error => {
       console.log(error);
