@@ -7,7 +7,7 @@ import { useSelector } from "react-redux"
 import SiteWrapper from "apps/main/SiteWrapper.react";
 import ProblemNav from "apps/main/problem/problemNav.react"
 
-export const code = ({match}) => {
+export const Code = ({match}) => {
     return(
         <SiteWrapper>
             <Page.Content>
