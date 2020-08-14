@@ -8,15 +8,18 @@ import * as Action from "apps/store/actions/problem.action";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
 
-var header = {
-  'Authorization' : 'jwt ' + window.localStorage.getItem('jwt_access_token')
-}
+// var header = {
+//   'Authorization' : 'jwt ' + window.localStorage.getItem('jwt_access_token')
+// }
 
  
 function CodeEditor(props)  {
-    
     const dispatch = useDispatch();
-    const problemId = window.localStorage.getItem("selectedProblemId")
+    const tmp = document.location.href.split("match/")
+    var problemId = window.localStorage.getItem("selectedProblemId")
+    if(tmp[1] !== problemId){
+        problemId = tmp[1]
+    }
     //const userId = window.localStorage.getItem("userId")
     const userId = 1
     const mode = props.mode;
@@ -32,10 +35,10 @@ function CodeEditor(props)  {
     {console.log("===> Editor", code, codeName)}
 
     let button;
-    if(mode == "post"){
+    if(mode === "post"){
       button = <Button onClick={codePost}>제출</Button>
     }
-    else if(mode == "edit"){
+    else if(mode === "edit"){
       button = <Button onClick={codePatch}>수정</Button>
     }
 
