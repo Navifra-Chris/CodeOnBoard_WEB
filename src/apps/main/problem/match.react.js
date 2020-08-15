@@ -7,6 +7,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import SiteWrapper from "apps/main/SiteWrapper.react";
 import ProblemNav from "apps/main/problem/problemNav.react"
 import * as Action from "apps/store/actions/match.action";
+import { call, delay } from 'redux-saga/effects'
 import "../../../../node_modules/tabler-react/dist/Tabler.css"
 import "../Home.css"
 
@@ -21,20 +22,46 @@ export const Match = ({match}) => {
     const userId = 2
     var challengerInfo = {}
     var challengerInfoInProblem = {}
+    var oppositeInfo = {}
+    var oppositeInfoInProblem = {}
     var problem = {}
 
-    const { tier, score, language, thumbnail, codeList } = useSelector(
+    const { 
+        tier, 
+        score, 
+        language, 
+        thumbnail, 
+        codeList, 
+        code, 
+        isMatching, 
+        gameStatus,
+        gameId, 
+        tier2, 
+        score2, 
+        language2,
+        
+    } = useSelector(
         state => ({
             tier: state.match.tier,
             score: state.match.score,
             language: state.match.language,
             thumbnail: state.match.thumbnail,
             codeList: state.match.codeList,
+            code: state.match.code,
+            isMatching: state.match.isMatching,
+            gameStatus: state.match.gameStatus,
+            gameId: state.match.gameId,
+            tier2: state.match.tier2,
+            user2: state.match.tier2,
+            score2: state.match.score2,
+            language2: state.match.language2,
+
         }),
         shallowEqual
       );
 
     function getProblem(problemId){
+        console.log("==> getProblem")
         axios
         .get(`https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/problem/${problemId}`,{})
         .then(response =>{
@@ -46,12 +73,16 @@ export const Match = ({match}) => {
         })
     }
 
-    function getUserInfo(userId){
+    function getUserInfo(type, userId){
+        console.log(`==> getUserinfo ${type}`, userId)
         axios.get(`https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/userfullInfo/${userId}`, {})
         .then(response => {
         //    getUserTier(userid,problemid,type,response.data.username, language);
+            
             challengerInfo = response.data.userInfo
             dispatch(Action.setLanguage(challengerInfo.language))
+        
+
         })
         .catch(error => {
            // console.log(error);
@@ -59,13 +90,23 @@ export const Match = ({match}) => {
   
     }
 
-    function getUserInfoInProblem(userId, problemId){
+    function getUserInfoInProblem(type, userId, problemId){
+        console.log(`==> getuiip ${type}`)
         axios.get(`http://203.246.112.32:8000/api/v1/userInformationInProblem/?user=${userId}&problem=${problemId}`, {})
         .then(response => {
         //    getUserTier(userid,problemid,type,response.data.username, language);
-            challengerInfoInProblem = response.data.results[0]
-            dispatch(Action.setTier(challengerInfoInProblem.tier))
-            dispatch(Action.setScore(challengerInfoInProblem.score))
+            if(type === "challenger"){
+                challengerInfoInProblem = response.data.results[0]
+                dispatch(Action.setTier(challengerInfoInProblem.tier))
+                dispatch(Action.setScore(challengerInfoInProblem.score))
+            }
+            else{
+                
+                oppositeInfoInProblem = response.data.results[0]
+                dispatch(Action.setTier2(oppositeInfoInProblem.tier))
+                dispatch(Action.setScore2(oppositeInfoInProblem.score))
+            }
+            
         })
         .catch(error => {
            // console.log(error);
@@ -74,70 +115,98 @@ export const Match = ({match}) => {
     }
 
     function getCodeList(userId, problemId){
+        console.log("==> getcodelist");
         axios.get(`http://203.246.112.32:8000/api/v1/code/?author=${userId}&problem=${problemId}&available_game=true`)
         .then(response => {
-            dispatch({ type : "GET_CODELIST", payload :response.data.results})
-            // if(codeList.length > 10){
-            //     dispatch(Action.getCodeList(codeList.slice(codeList.length-10, codeList.length)))
-            // }
-            console.log("Code List ==>", codeList)
+            dispatch(Action.setCodeList(response.data.results))
+            console.log(Object.keys(codeList).length);
         })
     }
-    // function matching(useriD, problemId, codeId){
-    //     if (isMatched){
-    //        return;
-    //     }
-    //     const config = {
-    //        'method' : 'POST',
-    //        'url': 'http://203.246.112.32:8000/api/v1/match/',
-    //        'headers': {
-    //           'Authorization' : 'jwt ' + window.localStorage.getItem('jwt_access_token')
-    //         },
-    //        'data': {
-    //           'userid': userid,
-    //           'problemid': problemid,
-    //           'codeid': codeid
-    //        } 
-    //     }
-        
-    //     axios(config)
-    //     .then(response => {
-  
-    //        var data = response.data;
-    //        // console.log(data.error);
-    //        if(data.error === undefined){
-    //           getUserInfo(data.challenger, data.problem, "challenger",data.challenger_language);
-    //           getUserInfo(data.opposite, data.problem, "opposite", data.opposite_language);
-              
-    //           setGameid(data.match_id);
-    //           setIsMatched(true);
-    //           setGameStatus('playing...');
-    //        }
-    //        else{
-    //           setGameStatus(`${data.error}`);
-    //        }
-  
-          
-    
-    //     })
-    //     .catch(error => {
-    //        // console.log(`match error : ${error.data}`);
-    //        setGameStatus('matching error...!');
-    //     })
-    //  }
 
+    function matching(userID, problemId, codeId){
+        console.log("===> matching");
+        if (isMatching){
+           return;
+        }
+        const config = {
+           'method' : 'POST',
+           'url': 'http://203.246.112.32:8000/api/v1/match/',
+        //    'headers': {
+        //       'Authorization' : 'jwt ' + window.localStorage.getItem('jwt_access_token')
+        //     },
+           'data': {
+              'userid': userID,
+              'problemid': problemId,
+              'codeid': codeId
+           } 
+        }
+        
+        axios(config)
+        .then(response => {
+            
+            const data = response.data;
+            console.log("Matching >>", data.opposite_language);
+            dispatch(Action.setLanguage2(data.opposite_language));
+            getUserInfo("opposite", data.opposite);
+            getUserInfoInProblem("opposite", data.opposite, data.problem)
+            
+            dispatch(Action.setGameId(data.match_id));
+            dispatch(Action.setIsMatching(true));
+            dispatch(Action.setGameStatus('playing...'));
+                
+        })
+        .catch(error => {
+           dispatch(Action.setGameStatus(`매칭 에러(${error})`));
+        })
+     }
+    
     React.useEffect(() => {
-        getUserInfo(userId);
-        getUserInfoInProblem(userId, problemId)
+        getUserInfo("challenger", userId);
+        getUserInfoInProblem("challenger", userId, problemId)
         getProblem(problemId)
         getCodeList(userId, problemId)
-        console.log("asdasd",codeList)
      },[]);
+
+    React.useEffect(() => {
+        if(isMatching){
+        const repeat = setInterval(() => {
+            axios.get(`http://203.246.112.32:8000/api/v1/game/${gameId}/`, {}) // {headers:header}
+            .then(response => {
+               const result = response.data.result;
+               // console.log(result);
+               
+               if (result !== "playing"){
+
+                const winner = response.data.winner;
+
+                if (winner === "challenger"){
+                    dispatch(Action.setGameResult('Win'));
+                    dispatch(Action.setGameResult2('Lose'));
+                    dispatch(Action.setGameStatus('Finish!'));
+                }
+                else if (winner === "opposite"){
+                    dispatch(Action.setGameResult('Lose'));
+                    dispatch(Action.setGameResult2('Win'));
+                    dispatch(Action.setGameStatus('Finish!'));
+                }
+                else{
+                    dispatch(Action.setGameStatus('Error'));
+                }
+
+                clearInterval(repeat);         
+               }
+
+            })
+            .catch(error => {
+                clearInterval(repeat);
+            })
+         },2000);
+        }
+    }, [isMatching])
     
 
     return(
         <SiteWrapper>
-            
             <Page.Content>
                 <ProblemNav id={match.params.id} />
                     <Grid.Row>
@@ -148,39 +217,57 @@ export const Match = ({match}) => {
                                 <Text className="mt-1" size="h4">Tier : {tier}</Text>
                                 <Text className="mt-1" size="h4">Score : {score}</Text>
                                 <Text className="mt-1" size="h4">Language : {language}</Text>
-                                <Text className="mt-1" size="h4">Win : 20</Text>
-                                <Text className="mt-1" size="h4">Lose : 10</Text>
+                                <Text className="mt-1" size="h4">Win : (value)</Text>
+                                <Text className="mt-1" size="h4">Lose : (value)</Text>
                             </Card>
                         </Grid.Col>
                         <Grid.Col>
-                            <Card xl={4} className="modal-dialog-centered">대전
+                        
+                            <Card xl={4} className="modal-dialog-centered p-card">
+                                <Text className="mt-1" size="h2">(Problem name)</Text>
                                 <GalleryCard className="p-0">
                                     <GalleryCard.Image
                                         src={thumbnail}>       
                                     </GalleryCard.Image>
                                 </GalleryCard>
+
                                 <Loader className="mb-4"></Loader>
                                 <Dropdown
                                     type="button"
                                     toggle={false}
                                     color="primary"
-                                    triggerContent="Select your code"
+                                    triggerContent={code.name.slice(0, 30)}
                                     itemsObject={[
-                                        {
-                                        value: "Profile",
+                                        { 
+                                            value:Object.keys(codeList).length>0?codeList[Object.keys(codeList).length-1].name:"" ,
+                                            onClick:()=>{dispatch(Action.setCode(codeList[Object.keys(codeList).length-1]))}
                                         },
                                         { isDivider: true },
-                                        { value: "Logout" },
-                                    ]}
-                                >
+                                        { 
+                                            value: Object.keys(codeList).length>0?codeList[Object.keys(codeList).length-2].name:"" ,
+                                            onClick:()=>{dispatch(Action.setCode(codeList[Object.keys(codeList).length-2]))}
+                                        },
+                                        { isDivider: true },
+                                        { 
+                                            value: Object.keys(codeList).length>0?codeList[Object.keys(codeList).length-3].name:"" ,
+                                            onClick:()=>{dispatch(Action.setCode(codeList[Object.keys(codeList).length-3]))}
+                                        },
+                                    ]}>
                                 </Dropdown>
-                                <Button className="mt-5" >매칭 시작</Button>
+                                <Button className="mt-5 mb-3" onClick={function(){
+                                    matching(userId, problemId, code.id)}}
+                                    >매칭 시작</Button>
                             </Card>
                         </Grid.Col>
                         <Grid.Col>
                             <Card xl={4} className="mt-8 modal-dialog-centered" title="user 2">
                                 <Avatar className= "mt-2" icon="users" size="xxl"/>
                                 <Text className="mt-1" size="h2">user2</Text>
+                                <Text className="mt-1" size="h4">Tier : {tier2}</Text>
+                                <Text className="mt-1" size="h4">Score : {score2}</Text>
+                                <Text className="mt-1" size="h4">Language : {language2}</Text>
+                                <Text className="mt-1" size="h4">Win : (value)</Text>
+                                <Text className="mt-1" size="h4">Lose : (value)</Text>
                             </Card>
                         </Grid.Col>
                     </Grid.Row>
