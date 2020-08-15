@@ -2,7 +2,7 @@ import { UnControlled as CodeMirror } from 'react-codemirror2';
 import * as React from "react";
 import './CodeMirror.css';
 import "./CodeEditor.css";
-import { Grid, Button } from 'tabler-react';
+import { Grid, Button, Dropdown } from 'tabler-react';
 import axios from "axios";
 import * as Action from "apps/store/actions/problem.action";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
@@ -15,23 +15,18 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
  
 function CodeEditor(props)  {
     const dispatch = useDispatch();
-    const tmp = document.location.href.split("match/")
-    var problemId = window.localStorage.getItem("selectedProblemId")
-    if(tmp[1] !== problemId){
-        problemId = tmp[1]
-    }
-    //const userId = window.localStorage.getItem("userId")
-    const userId = 1
+    const problemId = document.location.href.split("problem/")[1]
+    const userId = 2
     const mode = props.mode;
-    const { code, codeName, languageId } = useSelector(
+    const { code, codeName, language } = useSelector(
       state => ({
         code: state.problem.code,
         codeName: state.problem.codeName,
-        languageId: state.problem.languageId,
+        language: state.problem.language,
       }),
       shallowEqual
     );
-    
+    const languageList = {"Python": 1, "C": 2, "C++": 3}
     {console.log("===> Editor", code, codeName)}
 
     let button;
@@ -46,7 +41,7 @@ function CodeEditor(props)  {
       var data = {
         author: userId,
         code : code,
-        language : languageId,
+        language : languageList[language],
         problem: problemId,
         name : codeName
       }
@@ -55,6 +50,7 @@ function CodeEditor(props)  {
       .post("https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/code/", data) // TODO: header 추가
       .then(response =>{
         dispatch(Action.submit(true))
+        window.scrollTo(0, 0)
       })
       .catch(error => {
         alert("제출 실패")
@@ -65,7 +61,7 @@ function CodeEditor(props)  {
       var data = {
         author: userId,
         code : code,
-        language : languageId,
+        language : languageList[language],
         problem: problemId,
         name : codeName
       }
@@ -75,7 +71,8 @@ function CodeEditor(props)  {
     return(
         <React.Fragment >
           <Grid.Row justifyContent="center">
-            <Grid.Col className="offsetSelect">
+            {/* <Grid.Col className="offsetSelect">
+            
               <select value={languageId} padding-bottom="10px" 
               onChange={(e) => {
                 dispatch(Action.setLanguage(e.target.value))
@@ -85,8 +82,8 @@ function CodeEditor(props)  {
                 <option value={2}>C</option>
                 <option value={3}>C++</option>
               </select>
-            </Grid.Col>
-            <Grid.Col>
+            </Grid.Col> */}
+            <Grid.Col className="pt-2">
               <CodeMirror
               autoCursor={false}
               value={code}
@@ -101,14 +98,38 @@ function CodeEditor(props)  {
               />
             </Grid.Col>
             <Grid.Row className="pt-2">
-              <Grid>
+            <Grid.Col className="pt-2">
+                <Dropdown
+                  type="button"
+                  toggle={false}
+                  color="primary"
+                  triggerContent={language}
+                  itemsObject={[
+                      {
+                        value: "Python",
+                        onClick:()=>{dispatch(Action.setLanguage("Python"))}
+                      },
+                      { isDivider: true },
+                      { 
+                        value: "C",
+                        onClick:()=>{dispatch(Action.setLanguage("C"))} 
+                      },
+                      { isDivider: true },
+                      { 
+                        value: "C++",
+                        onClick:()=>{dispatch(Action.setLanguage("C++"))} 
+                      },
+                  ]}>
+                </Dropdown>
+              </Grid.Col>
+              <Grid.Col>
                 <textarea 
                   placeholder="Code Name" 
                   value={codeName} 
                   onChange={(e) => {
                   dispatch(Action.writeCodeName(e.target.value));
                 }}/>
-              </Grid>
+              </Grid.Col>
               <Grid.Col className="pt-2">
                 {button}
               </Grid.Col>
