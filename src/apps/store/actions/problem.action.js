@@ -31,6 +31,7 @@ export function writeCodeName(param){
     };
 }
 export function setLanguage(param){
+    console.log("set lang ==>", param)
     return {
         type: SET_LANGUAGE,
         payload: param

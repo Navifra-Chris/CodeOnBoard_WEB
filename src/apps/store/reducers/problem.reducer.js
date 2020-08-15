@@ -11,7 +11,7 @@ const initState = {
     desc : null,
     code : null,
     codeName : null,
-    languageId : null
+    language : "Select Language"
 }
 
 const problem = (state = initState, action) => {
@@ -25,7 +25,8 @@ const problem = (state = initState, action) => {
         case WIRTE_CODENAME:
             return {...state, codeName:action.payload}
         case SET_LANGUAGE:
-            return {...state, languageId:action.payload}
+            console.log("set lang reducer")
+            return {...state, language:action.payload}
         default:
             return state;
     }
