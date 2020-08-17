@@ -29,3 +29,13 @@
 .strong {
   font-weight: bolder;
 }
+
+.problem{
+  /* overflow: auto; */
+  flex-wrap: nowrap;
+
+}
+
+.editor{
+  overflow: hidden;
+}
