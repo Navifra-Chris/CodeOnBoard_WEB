@@ -9,7 +9,7 @@ import ProblemViewer from "apps/main/problem/components/ProblemViewer.react"
 import CodeEditor from "apps/main/problem/components/CodeEditor.react"
 import { useSelector, useDispatch } from "react-redux"
 import * as Action from "apps/store/actions/problem.action";
-
+import "../Home.css"
 function Problem( {match} ) {
     // const selectedId = window.localStorage.getItem('userName'); Change "/codes/my" to "/codes/userName"
     const problemId = document.location.href.split("problem/")[1]
@@ -34,14 +34,14 @@ function Problem( {match} ) {
     
     return(
         <SiteWrapper>
-            <Page.Content>
+            <Page.Content className="min-width">
             <ProblemNav id={match.params.id}/>
             {_alert}
                 <Grid.Row>
-                    <Grid.Col sm={6} lg={6}>
+                    <Grid.Col sm={6} lg={6} className="problem">
                         <ProblemViewer desc={problemDesc} />
                     </Grid.Col>
-                    <Grid.Col sm={6} lg={6}>
+                    <Grid.Col sm={6} lg={6} className="problem">
                         <CodeEditor mode="post"></CodeEditor>                        
                     </Grid.Col>
                 </Grid.Row>
