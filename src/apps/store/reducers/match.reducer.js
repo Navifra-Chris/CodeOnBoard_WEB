@@ -28,7 +28,7 @@ const initState = {
     
     // Game
     isMatching: false,
-    gameStatus: null,
+    gameStatus: "기다리는중",
     gameID: null,
 
     // Opposite

@@ -25,6 +25,7 @@ export const Match = ({match}) => {
     var oppositeInfo = {}
     var oppositeInfoInProblem = {}
     var problem = {}
+    
 
     const { 
         tier, 
@@ -59,7 +60,9 @@ export const Match = ({match}) => {
         }),
         shallowEqual
       );
-
+    
+    var loader = <Text className="mb-4 strong">{gameStatus}</Text>
+    
     function getProblem(problemId){
         console.log("==> getProblem")
         axios
@@ -152,7 +155,7 @@ export const Match = ({match}) => {
             
             dispatch(Action.setGameId(data.match_id));
             dispatch(Action.setIsMatching(true));
-            dispatch(Action.setGameStatus('playing...'));
+            dispatch(Action.setGameStatus('게임중...'));
                 
         })
         .catch(error => {
@@ -182,12 +185,12 @@ export const Match = ({match}) => {
                 if (winner === "challenger"){
                     dispatch(Action.setGameResult('Win'));
                     dispatch(Action.setGameResult2('Lose'));
-                    dispatch(Action.setGameStatus('Finish!'));
+                    dispatch(Action.setGameStatus('게임 종료!'));
                 }
                 else if (winner === "opposite"){
                     dispatch(Action.setGameResult('Lose'));
                     dispatch(Action.setGameResult2('Win'));
-                    dispatch(Action.setGameStatus('Finish!'));
+                    dispatch(Action.setGameStatus('게임 종료!'));
                 }
                 else{
                     dispatch(Action.setGameStatus('Error'));
@@ -204,6 +207,7 @@ export const Match = ({match}) => {
         }
     }, [isMatching])
     
+
 
     return(
         <SiteWrapper>
@@ -230,8 +234,7 @@ export const Match = ({match}) => {
                                         src={thumbnail}>       
                                     </GalleryCard.Image>
                                 </GalleryCard>
-
-                                <Loader className="mb-4"></Loader>
+                                {loader}      
                                 <Dropdown
                                     type="button"
                                     toggle={false}
