@@ -11,7 +11,7 @@ function ProblemNav(props) {
                         <Nav.Item value={`${props.id}번`} to={`/problem/${props.id}`} />
                         <Nav.Item to={`/match/${props.id}`}>대전</Nav.Item>
                         <Nav.Item to={`/replay/${props.id}`}>리플레이</Nav.Item>
-                        <Nav.Item to={`/code/my/${props.id}`}>내코드</Nav.Item>  
+                        <Nav.Item to={`/code/my/`}>내코드</Nav.Item>  
                         <Nav.Item to={`/matchlog/${props.id}`}>대전현황</Nav.Item>
                     </Nav>
                 </Grid.Col>

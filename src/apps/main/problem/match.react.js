@@ -13,11 +13,8 @@ import "../Home.css"
 
 export const Match = ({match}) => {
     const dispatch = useDispatch();
-    const tmp = document.location.href.split("match/")
-    var problemId = window.localStorage.getItem("selectedProblemId")
-    if(tmp[1] !== problemId){
-        problemId = tmp[1]
-    }
+    const problemId = document.location.href.split("match/")
+
     // const userId = window.localStorage.getItem("userId")
     const userId = 2
     var challengerInfo = {}
