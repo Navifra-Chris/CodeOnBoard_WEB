@@ -3,6 +3,7 @@ export const GET_DESCRIPTION = "GET_DESCRIPTION"
 export const WRITE_CODE = "WRITE_CODE"
 export const WIRTE_CODENAME = "WIRTE_CODENAME"
 export const SET_LANGUAGE = "SET_LANGUAGE"
+export const SET_EDITOR = "SET_EDITOR"
 
 export function submit(param){
     return {
@@ -34,6 +35,12 @@ export function setLanguage(param){
     console.log("set lang ==>", param)
     return {
         type: SET_LANGUAGE,
+        payload: param
+    };
+}
+export function setEditor(param){
+    return {
+        type: SET_EDITOR,
         payload: param
     };
 }

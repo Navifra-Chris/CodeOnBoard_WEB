@@ -4,6 +4,7 @@ import {
     WRITE_CODE,
     WIRTE_CODENAME,
     SET_LANGUAGE,
+    SET_EDITOR,
 } from '../actions/problem.action';
 
 const initState = {
@@ -11,7 +12,8 @@ const initState = {
     desc : null,
     code : null,
     codeName : null,
-    language : "Select Language"
+    language : "Select Language",
+    editor: null,
 }
 
 const problem = (state = initState, action) => {
@@ -27,6 +29,8 @@ const problem = (state = initState, action) => {
         case SET_LANGUAGE:
             console.log("set lang reducer")
             return {...state, language:action.payload}
+        case SET_EDITOR:
+            return {...state, editor:action.payload}
         default:
             return state;
     }
