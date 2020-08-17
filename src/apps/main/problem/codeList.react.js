@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import axios from 'axios';
-import { Button, Page } from "tabler-react";
+import { Button, Page, Card, Table, Tab } from "tabler-react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import SiteWrapper from "apps/main/SiteWrapper.react";
 import ProblemNav from "apps/main/problem/problemNav.react"
@@ -28,12 +28,33 @@ export const CodeList = ({match}) => {
         })
     }
 
+    React.useEffect(() => {
+        getCodeList()
+    },[])
+
     return(
         <SiteWrapper>
             <Page.Content>
                 <ProblemNav id={match.params.id} />
                     <h1> code </h1>
-                    <Button onClick={getCodeList}></Button>
+                    <Button onClick={getCodeList}>코드</Button>
+                    <Card>
+                        <Table>
+                            <Table.Body>
+                                <Table.Row>
+                                    <Table.Col>
+                                        {/* {codeList} */}
+                                    </Table.Col>
+                                    <Table.Col>
+                                        2
+                                    </Table.Col>
+                                    <Table.Col>
+                                        3
+                                    </Table.Col>
+                                </Table.Row>
+                            </Table.Body>
+                        </Table>
+                    </Card>
             </Page.Content>
         </SiteWrapper>
     )
