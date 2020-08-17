@@ -7,22 +7,29 @@ import axios from "axios";
 import * as Action from "apps/store/actions/problem.action";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
+import "../../../../../node_modules/codemirror/lib/codemirror.css"
+import "../../../../../node_modules/codemirror/theme/material.css";
 
 // var header = {
 //   'Authorization' : 'jwt ' + window.localStorage.getItem('jwt_access_token')
 // }
 
- 
+require('codemirror/theme/neat.css');
+require('codemirror/mode/python/python.js');
+require('codemirror/mode/clike/clike.js');
+
+
 function CodeEditor(props)  {
     const dispatch = useDispatch();
     const problemId = document.location.href.split("problem/")[1]
     const userId = 2
     const mode = props.mode;
-    const { code, codeName, language } = useSelector(
+    const { code, codeName, language, editor } = useSelector(
       state => ({
         code: state.problem.code,
         codeName: state.problem.codeName,
         language: state.problem.language,
+        editor: state.problem.editor,
       }),
       shallowEqual
     );
@@ -70,7 +77,7 @@ function CodeEditor(props)  {
 
     return(
         <React.Fragment >
-          <Grid.Row justifyContent="center">
+          <Grid.Row justifyContent="center editor" >
             {/* <Grid.Col className="offsetSelect">
             
               <select value={languageId} padding-bottom="10px" 
@@ -88,7 +95,7 @@ function CodeEditor(props)  {
               autoCursor={false}
               value={code}
               options={{
-                mode: window.localStorage.getItem('editor_type'),
+                mode: "python",
                 theme: "material",
                 lineNumbers: true
               }}
@@ -107,17 +114,26 @@ function CodeEditor(props)  {
                   itemsObject={[
                       {
                         value: "Python",
-                        onClick:()=>{dispatch(Action.setLanguage("Python"))}
+                        onClick:()=>{
+                          dispatch(Action.setLanguage("Python"))
+                          dispatch(Action.setEditor("python"))
+                        }
                       },
                       { isDivider: true },
                       { 
                         value: "C",
-                        onClick:()=>{dispatch(Action.setLanguage("C"))} 
+                        onClick:()=>{
+                          dispatch(Action.setLanguage("C"))
+                          dispatch(Action.setEditor("clike"))
+                        }   
                       },
                       { isDivider: true },
                       { 
                         value: "C++",
-                        onClick:()=>{dispatch(Action.setLanguage("C++"))} 
+                        onClick:()=>{
+                          dispatch(Action.setLanguage("C++"))
+                          dispatch(Action.setEditor("clike"))
+                        } 
                       },
                   ]}>
                 </Dropdown>
