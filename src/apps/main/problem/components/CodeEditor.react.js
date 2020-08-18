@@ -4,10 +4,8 @@ import './CodeMirror.css';
 import "./CodeEditor.css";
 import { Grid, Button, Dropdown } from 'tabler-react';
 import axios from "axios";
-import * as Action from "apps/store/actions/problem.action";
+import * as Action from "../../../store/actions/problem.action"
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-
-import "../../../../../node_modules/codemirror/lib/codemirror.css"
 import "../../../../../node_modules/codemirror/theme/material.css";
 
 // var header = {
@@ -77,7 +75,7 @@ function CodeEditor(props)  {
 
     return(
         <React.Fragment >
-          <Grid.Row justifyContent="center editor" >
+          <Grid.Row justifyContent="center " >
             {/* <Grid.Col className="offsetSelect">
             
               <select value={languageId} padding-bottom="10px" 
@@ -92,6 +90,7 @@ function CodeEditor(props)  {
             </Grid.Col> */}
             <Grid.Col className="pt-2">
               <CodeMirror
+              className="editor"
               autoCursor={false}
               value={code}
               options={{
