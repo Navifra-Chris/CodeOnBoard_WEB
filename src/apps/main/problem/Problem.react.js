@@ -4,11 +4,11 @@ import * as React from "react";
 import axios from 'axios';
 import { Alert, Page, Grid } from "tabler-react";
 import SiteWrapper from "../SiteWrapper.react";
-import ProblemNav from "apps/main/problem/problemNav.react"
-import ProblemViewer from "apps/main/problem/components/ProblemViewer.react"
-import CodeEditor from "apps/main/problem/components/CodeEditor.react"
+import ProblemNav from "../../main/problemNav.react"
+import ProblemViewer from "../../main/problem/components/ProblemViewer.react"
+import CodeEditor from "../../main/problem/components/CodeEditor.react"
 import { useSelector, useDispatch } from "react-redux"
-import * as Action from "apps/store/actions/problem.action";
+import * as Action from "../../store/actions/problem.action";
 import "../Home.css"
 function Problem( {match} ) {
     // const selectedId = window.localStorage.getItem('userName'); Change "/codes/my" to "/codes/userName"
