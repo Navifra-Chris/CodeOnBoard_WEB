@@ -5,8 +5,9 @@ import "../../../node_modules/tabler-react/dist/Tabler.css"
 import {  GalleryCard, Dropdown } from "tabler-react";
 
 import SiteWrapper from "./SiteWrapper.react";
-import HomeImg from '../images/Home.jpeg'
-import 'apps/main/Home.css'
+// import HomeImg from '../images/Home.jpeg'
+// import HomeImg from '/images/Home.jpeg'
+import './Home.css'
 
 function Home() {
   return (
@@ -14,7 +15,7 @@ function Home() {
       <GalleryCard className="HomeImage">
         <GalleryCard.Image
           className='mb-0'
-          src={HomeImg}
+          src='assets/images/Home.jpeg'
         />
       </GalleryCard>
     </SiteWrapper>
