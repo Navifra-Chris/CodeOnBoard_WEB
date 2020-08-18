@@ -31,11 +31,29 @@
 }
 
 .problem{
-  /* overflow: auto; */
+  min-width: 595px;
   flex-wrap: nowrap;
 
 }
 
 .editor{
+  min-width: 650px;
   overflow: hidden;
+}
+
+.resultWin{
+  color:green
+}
+
+.resultLose{
+  color:red
+}
+
+.modal{
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: 'absolute';
+	background-color: black;
+
 }
