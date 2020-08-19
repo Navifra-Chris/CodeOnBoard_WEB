@@ -57,3 +57,11 @@
 	background-color: black;
 
 }
+
+.center{
+  margin-left: 15px;
+}
+
+.tb{
+  vertical-align: unset !important;
+}

@@ -8,9 +8,9 @@ import * as Action from "../../../store/actions/problem.action"
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import "../../../../../node_modules/codemirror/theme/material.css";
 
-// var header = {
-//   'Authorization' : 'jwt ' + window.localStorage.getItem('jwt_access_token')
-// }
+var header = {
+  'Authorization' : 'jwt ' + window.localStorage.getItem('jwt')
+}
 
 require('codemirror/theme/neat.css');
 require('codemirror/mode/python/python.js');
