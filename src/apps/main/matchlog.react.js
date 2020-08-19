@@ -22,7 +22,7 @@ function Matchlog({match}) {
         <SiteWrapper>
             <Page.Content>
                 <ProblemNav id={match.params.id} />
-                    <h1> matchlog </h1>
+                    <h1> {window.localStorage.getItem("change")} </h1>
                     <img src="../../../images/webGL/board.jpg" alt={"logo"}/> 
             </Page.Content>
         </SiteWrapper>
