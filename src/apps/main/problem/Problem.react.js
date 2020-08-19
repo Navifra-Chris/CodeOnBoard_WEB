@@ -10,7 +10,7 @@ import CodeEditor from "../../main/problem/components/CodeEditor.react"
 import { useSelector, useDispatch } from "react-redux"
 import * as Action from "../../store/actions/problem.action";
 import "../Home.css"
-function Problem( {match} ) {
+function Problem( {match , history} ) {
     // const selectedId = window.localStorage.getItem('userName'); Change "/codes/my" to "/codes/userName"
     const problemId = document.location.href.split("problem/")[1]
 
@@ -24,14 +24,24 @@ function Problem( {match} ) {
         _alert = <Alert type="success" icon="check">제출 완료</Alert>
     }
 
+    const _mode = window.localStorage.getItem("codeMode")
+
+
     React.useEffect(() => {
         axios
-        .get(`https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/problem/${problemId}`,{})
+        .get(`https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/problem/${problemId}`,{'access-control-allow-origin': '*'})
         .then(response =>{
             dispatch(Action.getDescription(response.data.description))
         })
     },[]);
-    
+
+    React.useEffect(()=>{
+        console.log("====>", window.localStorage.getItem("codeMode"))
+        return function cleanup(){
+            window.localStorage.setItem("codeMode", "post")
+        };
+    },[])
+
     return(
         <SiteWrapper>
             <Page.Content className="min-width">
@@ -42,7 +52,7 @@ function Problem( {match} ) {
                         <ProblemViewer desc={problemDesc} />
                     </Grid.Col>
                     <Grid.Col sm={6} lg={6} className="problem">
-                        <CodeEditor mode="post"></CodeEditor>                        
+                        <CodeEditor mode={_mode}></CodeEditor>                        
                     </Grid.Col>
                 </Grid.Row>
             </Page.Content>
