@@ -5,7 +5,6 @@ import { Button, Grid } from "tabler-react"
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function ProblemViewer(props)  {
-    {console.log("===> viewer", props)}
     const [numPages, setNumPages] = React.useState(null);
     const [pageNumber, setPageNumber] = React.useState(1);
 
