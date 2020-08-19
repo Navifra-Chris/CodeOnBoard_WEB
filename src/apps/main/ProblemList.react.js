@@ -36,6 +36,7 @@ function ProblemList() {
               console.log("onclick");
               // dispatch(Action.setProblemIdAction(problem.id));
               window.localStorage.setItem('selectedProblemId', problem.id);
+              window.localStorage.setItem('codeMode', "post");
               console.log(window.localStorage.getItem('selectedProblemId'))
             }}>
               <GalleryCard.Image
