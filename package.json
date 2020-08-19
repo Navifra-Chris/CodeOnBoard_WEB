@@ -14,6 +14,7 @@
     "codemirror": "^5.56.0",
     "d3-scale": "^3.2.1",
     "formik": "^2.1.5",
+    "local-cors-proxy": "^1.1.0",
     "phaser": "^3.24.1",
     "phaser3-rex-plugins": "^1.1.23",
     "prop-types": "^15.7.2",
@@ -36,7 +37,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "proxy": "  lcp --proxyUrl http://203.246.112.32:8000"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,5 +55,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://203.246.112.32:8000"
+  "proxy":"http://203.246.112.32:8000"
 }
