@@ -32,13 +32,13 @@ function CodeEditor(props)  {
       shallowEqual
     );
     const languageList = {"Python": 1, "C": 2, "C++": 3}
-    {console.log("===> Editor", code, codeName)}
+    const languageList2 = {1: "Python", 2: "C", 3: "C++"}
 
     let button;
     if(mode === "post"){
       button = <Button onClick={codePost}>제출</Button>
     }
-    else if(mode === "edit"){
+    else if(mode === "update"){
       button = <Button onClick={codePatch}>수정</Button>
     }
 
@@ -72,6 +72,23 @@ function CodeEditor(props)  {
       }
       alert("수정 완료")
     }
+
+    React.useEffect(() =>{
+      if(window.localStorage.getItem("codeMode") === "update"){
+        axios.get(`https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/code/${window.sessionStorage.getItem("selectedCodeId")}`, { headers: header})
+          .then((response) => {
+            console.log("data==>",response.data)
+            dispatch(Action.writeCode(response.data.code));
+            dispatch(Action.setLanguage(languageList2[response.data.language]));
+          })
+          .catch((error) => {
+            console.log(error);
+          })
+      }
+      else{
+
+      }
+    },[])
 
     return(
         <React.Fragment >
