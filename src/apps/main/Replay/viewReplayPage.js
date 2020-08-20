@@ -3,8 +3,7 @@ import { IonPhaser } from '@ion-phaser/react'
 import Scene2 from './components/scene2'
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import { Button, Page, Card, Table, Media } from "tabler-react";
+import { Button } from "tabler-react";
 
 
 
@@ -56,7 +55,7 @@ function ViewReplayPage(props) {
 		<div>
 			<Button className="center" onClick={handleOpen} color="primary" >
 				{/* <PlayCircleFilledWhiteIcon style={{ color: pink[500] }}/> */}
-				<h6>{"보기"}</h6>
+				보기
 			</Button>
 			<Modal
 				aria-labelledby="simple-modal-title"
