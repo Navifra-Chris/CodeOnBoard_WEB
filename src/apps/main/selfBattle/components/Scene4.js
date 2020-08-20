@@ -11,7 +11,7 @@ const version = {
 }
 
 var header = {
-  'Authorization' : 'jwt ' + window.localStorage.getItem('jwt_access_token')
+  'Authorization' : 'jwt ' + window.localStorage.getItem('jwt')
 }
 
 class Scene4 extends Phaser.Scene {

@@ -1,6 +1,8 @@
 import Phaser from 'phaser'
 import axios from 'axios'
 import { stringify } from 'qs';
+import Slider from 'phaser3-rex-plugins/plugins/slider.js';
+
 
 const boardSize = 627;
 const modalWidth = 1050;
@@ -12,7 +14,7 @@ const version = {
 }
 
 var header = {
-  'Authorization' : 'jwt ' + window.localStorage.getItem('jwt_access_token')
+  'Authorization' : 'jwt ' + window.localStorage.getItem('jwt')
 }
 
 class Scene2 extends Phaser.Scene {
@@ -21,7 +23,16 @@ class Scene2 extends Phaser.Scene {
     this.boardStatus = {};
     console.log("cons");
   }
-  
+  preload(){
+    this.load.image("background", "http://localhost:3000/assets/images/webGL/board.jpg");
+    this.load.image("blue_boo", "http://localhost:3000/assets/images/webGL/blue_boo.png");
+    this.load.image("pink_boo", "http://localhost:3000/assets/images/webGL/pink_boo.png");
+    this.load.image("spinner", "http://localhost:3000/assets/images/webGL/spinner.png");
+    this.load.image("me", "http://localhost:3000/assets/images/webGL/user.png");
+    this.load.image("you", "http://localhost:3000/assets/images/webGL/user2.png");
+    this.load.image('dot', 'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/assets/images/white-dot.png'); // slider dot
+  }
+
   create() {
     this.boardStatus = {
       chacksoo: [],
@@ -129,8 +140,8 @@ class Scene2 extends Phaser.Scene {
 
             // data to post
             let bodyData = {
-              "problem": window.sessionStorage.getItem("SS_gameId"),
-              "code": window.sessionStorage.getItem("SS_codeId"),
+              "problem": window.sessionStorage.getItem("problemId"),
+              "code": window.sessionStorage.getItem("codeId"),
               "board_info": boardInfo,
               "placement_info": this.moveAfter.length !== 0 ? this.moveBefore[0] + " " + this.moveBefore[1] + " > " + this.moveAfter[0] + " " + this.moveAfter[1] :"1 " + JSON.stringify(cellX) + " " + JSON.stringify(cellY),
             };
@@ -191,7 +202,7 @@ class Scene2 extends Phaser.Scene {
 
     // for slider
     this.sliderDot = this.add.image(modalWidth/2, modalHeight - 50, 'dot').setScale(7, 7); // add dot
-    this.sliderDot.slider = this.plugins.get('rexsliderplugin').add(this.sliderDot, {
+    this.sliderDot.slider = new Slider(this.sliderDot, {
       endPoints: [{
               x: this.sliderDot.x - 200,
               y: this.sliderDot.y
