@@ -80,33 +80,8 @@ const navBarItems: Array<navItem> = [
   {
     value: "Ranking",
     icon: "thumbs-up",
-    subItems: [
-      { value: "Profile", to: "/profile", LinkComponent: withRouter(NavLink) },
-      { value: "Login", to: "/login", LinkComponent: withRouter(NavLink) },
-      {
-        value: "Register",
-        to: "/register",
-        LinkComponent: withRouter(NavLink),
-      },
-      {
-        value: "Forgot password",
-        to: "/forgot-password",
-        LinkComponent: withRouter(NavLink),
-      },
-      { value: "400 error", to: "/400", LinkComponent: withRouter(NavLink) },
-      { value: "401 error", to: "/401", LinkComponent: withRouter(NavLink) },
-      { value: "403 error", to: "/403", LinkComponent: withRouter(NavLink) },
-      { value: "404 error", to: "/404", LinkComponent: withRouter(NavLink) },
-      { value: "500 error", to: "/500", LinkComponent: withRouter(NavLink) },
-      { value: "503 error", to: "/503", LinkComponent: withRouter(NavLink) },
-      { value: "Email", to: "/email", LinkComponent: withRouter(NavLink) },
-      {
-        value: "Empty page",
-        to: "/empty-page",
-        LinkComponent: withRouter(NavLink),
-      },
-      { value: "RTL", to: "/rtl", LinkComponent: withRouter(NavLink) },
-    ],
+    to: "/ranking",
+    LinkComponent: withRouter(NavLink),
   },
 ];
 
