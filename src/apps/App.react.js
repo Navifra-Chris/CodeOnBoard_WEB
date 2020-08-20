@@ -7,8 +7,10 @@ import Replay from "./main/Replay/replay.react"
 import Match from "./main/match/match.react"
 import CodeList from "./main/codeList.react"
 import Matchlog from "./main/matchlog.react"
-import login from "./login/login.react"
+import Login from "./login/login.react"
+import Ranking from "./main/ranking.react"
 import "tabler-react/dist/Tabler.css";
+import RankingProblem from "./main/rankingProblem/rankingProblem.react";
 
 function App(props: Props): React.Node {
   return (
@@ -22,7 +24,10 @@ function App(props: Props): React.Node {
           <Route exact path="/match/:id" component={Match} />
           <Route exact path="/code/my/" component={CodeList} />
           <Route exact path="/matchlog/:id" component={Matchlog} />
-          <Route exact path="/login" component={login} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/rankingProblem/:id" component={RankingProblem} />
+          <Route exact path="/ranking" component={Ranking} />
+          
         </Switch>
       </Router>
     </React.StrictMode>
