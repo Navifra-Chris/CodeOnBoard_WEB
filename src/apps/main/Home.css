@@ -71,7 +71,11 @@
   text-align: center;
 }
 
-.th{
+.cth{
  color:black !important;
  text-align: center;
+}
+
+.th{
+  background-color: lightgray;
 }
