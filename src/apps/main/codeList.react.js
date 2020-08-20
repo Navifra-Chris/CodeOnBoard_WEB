@@ -13,6 +13,7 @@ function CodeList({match}) {
     const dispatch = useDispatch();
     const userId = 2
     const _problemId = 1
+    // const problemId = document.location.href.split("codelist/")[1]
     const { codeList } = useSelector(state => ({ 
         codeList: state.codeList.codeList,
     }))
@@ -72,14 +73,14 @@ function CodeList({match}) {
                 <ProblemNav id={match.params.id} />
                     <Card className="mt-4">
                         <Table>
-                            <Table.Header>
+                            <Table.Header className="th">
                                 <tr>
-                                <Table.ColHeader className="th">이름</Table.ColHeader>
-                                <Table.ColHeader className="th">제출 날짜</Table.ColHeader>
-                                <Table.ColHeader className="th">언어</Table.ColHeader>
-                                <Table.ColHeader className="th">게임 가능 여부</Table.ColHeader>
-                                <Table.ColHeader className="th">수정</Table.ColHeader>
-                                <Table.ColHeader className="th">코드와 대전하기</Table.ColHeader>
+                                <Table.ColHeader className="cth">이름</Table.ColHeader>
+                                <Table.ColHeader className="cth">제출 날짜</Table.ColHeader>
+                                <Table.ColHeader className="cth">언어</Table.ColHeader>
+                                <Table.ColHeader className="cth">게임 가능 여부</Table.ColHeader>
+                                <Table.ColHeader className="cth">수정</Table.ColHeader>
+                                <Table.ColHeader className="cth">코드와 대전하기</Table.ColHeader>
                                 </tr>
                             </Table.Header>
                             {_list}
