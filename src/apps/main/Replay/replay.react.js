@@ -2,18 +2,14 @@
 
 import * as React from "react";
 import axios from 'axios';
-import { Button, Page, Card, Table, Media } from "tabler-react";
+import { Button, Page, Card, Table } from "tabler-react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import SiteWrapper from "../../main/SiteWrapper.react"
 import ProblemNav from "../../main/problemNav.react"
 import * as Action from "../../store/actions/replay.action";
 import "../../../../node_modules/tabler-react/dist/Tabler.css"
 import "../Home.css"
-import Modal from 'react-bootstrap/Modal';
-import Scene2 from './components/scene2'
-import { IonPhaser } from '@ion-phaser/react'
 import ViewReplayPage from "./viewReplayPage"
-import { makeStyles } from '@material-ui/core/styles';
 
 
 function Replay( {match} ) {
@@ -81,39 +77,36 @@ function Replay( {match} ) {
         <SiteWrapper>
             <Page.Content>
                 <ProblemNav id={problemId} />
-                    <h1> Replay </h1>
-                    <Button>리플레이</Button>
-                    <Card>
+                    <Card className="mt-4">
                         <Table>
-                            <Table.Header>
-                                <Table.ColHeader>문제</Table.ColHeader>
-                                <Table.ColHeader>대전 상대</Table.ColHeader>
-                                <Table.ColHeader>대전 날짜</Table.ColHeader>
-                                <Table.ColHeader>결과</Table.ColHeader>
-                                <Table.ColHeader>리플레이 보기</Table.ColHeader>
-                                <Table.ColHeader>점수</Table.ColHeader>
+                            <Table.Header >
+                            <tr>
+                                <Table.ColHeader className="th">문제</Table.ColHeader>
+                                <Table.ColHeader className="th">대전 상대</Table.ColHeader>
+                                <Table.ColHeader className="th">대전 날짜</Table.ColHeader>
+                                <Table.ColHeader className="th">결과</Table.ColHeader>
+                                <Table.ColHeader className="th">리플레이 보기</Table.ColHeader>
+                                <Table.ColHeader className="th">점수</Table.ColHeader>
+                            </tr>
                             </Table.Header>
                             <Table.Body>
                                 {replayList.map(replay => {
                                     return(
-                                        <Table.Row >
+                                        <Table.Row key={replay.id}>
                                             <Table.Col className="tb">
                                                 {`${replay.title}(${replay.id})`}
                                             </Table.Col>
-                                            <Table.Col>
+                                            <Table.Col className="tb">
                                                 {`${replay.opposite_name}`}
                                             </Table.Col>
-                                            <Table.Col>
+                                            <Table.Col className="tb">
                                             {`${replay.date.split('T')[0]} ${replay.date.split('T')[1].split('.')[0]}`}
                                             </Table.Col>
-                                            {getWinner(replay.challenger, replay.opposite, replay.winner)}
-                                            <Table.Col>
-                                            
+                                                {getWinner(replay.challenger, replay.opposite, replay.winner)}
+                                            <Table.Col className="tb">
                                                 <ViewReplayPage tmp_id={replay.id}/>
-                                                
-
                                             </Table.Col>
-                                            <Table.Col>
+                                            <Table.Col className="tb">
                                                 {`${getScore(replay.challenger, replay.opposite, replay.challenger_score, replay.opposite_score)}
                                                 (${getScoreFlu(replay.challenger, replay.opposite, replay.challenger_score_flu, replay.opposite_score_flu)})`}
                                             </Table.Col>
