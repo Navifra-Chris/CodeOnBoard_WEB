@@ -14,6 +14,7 @@ function ProblemNav(props) {
                         <Nav.Item LinkComponent={withRouter(NavLink)} to={`/replay/${props.id}`}>리플레이</Nav.Item>
                         <Nav.Item LinkComponent={withRouter(NavLink)} to={`/code/my/`}>내코드</Nav.Item>  
                         <Nav.Item LinkComponent={withRouter(NavLink)} to={`/matchlog/${props.id}`}>대전현황</Nav.Item>
+                        <Nav.Item LinkComponent={withRouter(NavLink)} to={`/rankingProblem/${props.id}`}>랭킹</Nav.Item>
                     </Nav>
                 </Grid.Col>
             </Grid.Row>
