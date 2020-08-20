@@ -42,11 +42,15 @@
 }
 
 .resultWin{
-  color:green
+  color:green;
+  vertical-align: middle !important;
+  text-align: center;
 }
 
 .resultLose{
-  color:red
+  color:red;
+  vertical-align: middle !important;
+  text-align: center;
 }
 
 .modal{
@@ -63,5 +67,11 @@
 }
 
 .tb{
-  vertical-align: unset !important;
+  vertical-align: middle !important;
+  text-align: center;
+}
+
+.th{
+ color:black !important;
+ text-align: center;
 }
