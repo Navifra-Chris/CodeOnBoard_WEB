@@ -54,7 +54,6 @@ function CodeEditor(props)  {
       axios
       .post("https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/code/", data) // TODO: header 추가
       .then(response =>{
-        dispatch(Action.submit(true))
         window.scrollTo(0, 0)
       })
       .catch(error => {
@@ -70,7 +69,15 @@ function CodeEditor(props)  {
         problem: problemId,
         name : codeName
       }
-      alert("수정 완료")
+      axios.patch(`https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/code/${window.sessionStorage.getItem("selectedCodeId")}/`, data)
+      .then(response => {
+        window.scrollTo(0, 0)
+        alert("수정 완료")
+      })
+      .catch(error => {
+        alert("수정 실패")
+      })
+      
     }
 
     React.useEffect(() =>{
@@ -80,6 +87,7 @@ function CodeEditor(props)  {
             console.log("data==>",response.data)
             dispatch(Action.writeCode(response.data.code));
             dispatch(Action.setLanguage(languageList2[response.data.language]));
+            dispatch(Action.writeCodeName(response.data.name));
           })
           .catch((error) => {
             console.log(error);
