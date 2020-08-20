@@ -79,14 +79,14 @@ function Replay( {match} ) {
                 <ProblemNav id={problemId} />
                     <Card className="mt-4">
                         <Table>
-                            <Table.Header >
+                            <Table.Header className="th">
                             <tr>
-                                <Table.ColHeader className="th">문제</Table.ColHeader>
-                                <Table.ColHeader className="th">대전 상대</Table.ColHeader>
-                                <Table.ColHeader className="th">대전 날짜</Table.ColHeader>
-                                <Table.ColHeader className="th">결과</Table.ColHeader>
-                                <Table.ColHeader className="th">리플레이 보기</Table.ColHeader>
-                                <Table.ColHeader className="th">점수</Table.ColHeader>
+                                <Table.ColHeader className="cth">문제</Table.ColHeader>
+                                <Table.ColHeader className="cth">대전 상대</Table.ColHeader>
+                                <Table.ColHeader className="cth">대전 날짜</Table.ColHeader>
+                                <Table.ColHeader className="cth">결과</Table.ColHeader>
+                                <Table.ColHeader className="cth">리플레이 보기</Table.ColHeader>
+                                <Table.ColHeader className="cth">점수</Table.ColHeader>
                             </tr>
                             </Table.Header>
                             <Table.Body>
