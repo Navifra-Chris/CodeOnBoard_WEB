@@ -7,7 +7,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import SiteWrapper from "./SiteWrapper.react";
 import ProblemNav from "./problemNav.react"
 import * as Action from "../store/actions/codeList.action";
-import { TableBody } from "@material-ui/core";
+import SelfBattle from "./selfBattle/selfBattle.react"
 
 function CodeList({match}) {
     const dispatch = useDispatch();
@@ -18,22 +18,22 @@ function CodeList({match}) {
     }))
 
     var _list = codeList!==null?
-        <TableBody>{codeList.map(code => {
+        <Table.Body>{codeList.map(code => {
             return(
-            <Table.Row>
-                <Table.Col>
+            <Table.Row key={code.id}>
+                <Table.Col className="tb">
                     {`${code.name}`}
                 </Table.Col>
-                <Table.Col>
+                <Table.Col className="tb">
                     {`${code.date.split('T')[0]} ${code.date.split('T')[1].split('.')[0]}`}
                 </Table.Col>
-                <Table.Col>
+                <Table.Col className="tb">
                     {`${code.language}`}
                 </Table.Col>
-                <Table.Col>
+                <Table.Col className="tb">
                     {code.available_game===true?`가능`:`불가능`}
                 </Table.Col>
-                <Table.Col>
+                <Table.Col className="tb">
                     <Button color="primary" RootComponent="a" href="/problem/1" onClick={()=>{
                         window.localStorage.setItem("codeMode", "update")
                         window.sessionStorage.setItem("selectedCodeId", code.id);
@@ -42,11 +42,14 @@ function CodeList({match}) {
                         수정
                     </Button>
                 </Table.Col>
+                <Table.Col className="tb">
+                    <SelfBattle available={code.available_game}></SelfBattle>
+                </Table.Col>
             </Table.Row>
             )
         })}
-        </TableBody>
-        :<Loader></Loader>
+        </Table.Body>
+        :<tbody></tbody>
     
     
     function getCodeList(){
@@ -68,16 +71,17 @@ function CodeList({match}) {
         <SiteWrapper>
             <Page.Content>
                 <ProblemNav id={match.params.id} />
-                    <h1> code </h1>
-                    <Button onClick={getCodeList}>코드</Button>
-                    <Card>
+                    <Card className="mt-4">
                         <Table>
                             <Table.Header>
-                                <Table.ColHeader>이름</Table.ColHeader>
-                                <Table.ColHeader>제출 날짜</Table.ColHeader>
-                                <Table.ColHeader>언어</Table.ColHeader>
-                                <Table.ColHeader>게임 가능 여부</Table.ColHeader>
-                                <Table.ColHeader>수정</Table.ColHeader>
+                                <tr>
+                                <Table.ColHeader className="th">이름</Table.ColHeader>
+                                <Table.ColHeader className="th">제출 날짜</Table.ColHeader>
+                                <Table.ColHeader className="th">언어</Table.ColHeader>
+                                <Table.ColHeader className="th">게임 가능 여부</Table.ColHeader>
+                                <Table.ColHeader className="th">수정</Table.ColHeader>
+                                <Table.ColHeader className="th">코드와 대전하기</Table.ColHeader>
+                                </tr>
                             </Table.Header>
                             {_list}
                         </Table>
