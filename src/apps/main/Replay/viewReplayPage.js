@@ -5,8 +5,6 @@ import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 import { Button } from "tabler-react";
 
-
-
 function getModalStyle() {
 	const top = 50 ;
 	const left = 50 ;
@@ -34,12 +32,12 @@ function ViewReplayPage(props) {
 	const [open, setOpen] = React.useState(false);
 	
 	const handleOpen = () => {
-		window.localStorage.setItem('game_id', props.tmp_id);
+		// window.localStorage.setItem('game_id', props.tmp_id);
 		setOpen(true);
 	};
 	
 	const handleClose = () => {
-		window.localStorage.removeItem('game_id')
+		// window.localStorage.removeItem('game_id')
 		setOpen(false);
 	};
 
