@@ -4,7 +4,7 @@ const initStata = {
     userList: null,
 }
 
-const codeList = (state = initStata, action) => {
+const rankingProblem = (state = initStata, action) => {
     switch(action.type){
         case SET_RANKING:
             return {...state, userList:action.payload};
@@ -13,4 +13,4 @@ const codeList = (state = initStata, action) => {
     }
 }
 
-export default codeList
+export default rankingProblem
