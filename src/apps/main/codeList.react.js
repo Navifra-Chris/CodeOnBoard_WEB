@@ -17,7 +17,9 @@ function CodeList({match}) {
     const { codeList } = useSelector(state => ({ 
         codeList: state.codeList.codeList,
     }))
-
+    const header = {
+        'Authorization' : 'jwt ' + window.localStorage.getItem('jwt')
+        }
     var _list = codeList!==null?
         <Table.Body>{codeList.map(code => {
             return(
@@ -54,7 +56,8 @@ function CodeList({match}) {
     
     function getCodeList(){
         console.log("==> getcodelist");
-        axios.get(`http://203.246.112.32:8000/api/v1/code/?author=${userId}&problem=${_problemId}`)
+        // axios.get(`http://203.246.112.32:8000/api/v1/code/?author=${userId}&problem=${_problemId}`)
+        axios.get(`http://203.246.112.32:8000/api/v1/code/?problem=${_problemId}`, {headers:header})
         .then(response => {
             dispatch(Action.setCodeList(response.data.results))
             // console.log(Object.keys(codeList).length);

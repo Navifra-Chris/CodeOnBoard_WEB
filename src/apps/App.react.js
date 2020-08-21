@@ -8,6 +8,7 @@ import Match from "./main/match/match.react"
 import CodeList from "./main/codeList.react"
 import Matchlog from "./main/matchlog.react"
 import Login from "./login/login.react"
+import login2 from "./components/authentication/LoginPage"
 import Ranking from "./main/ranking.react"
 import "tabler-react/dist/Tabler.css";
 import RankingProblem from "./main/rankingProblem/rankingProblem.react";
@@ -24,7 +25,8 @@ function App(props: Props): React.Node {
           <Route exact path="/match/:id" component={Match} />
           <Route exact path="/code/my/" component={CodeList} />
           <Route exact path="/matchlog/:id" component={Matchlog} />
-          <Route exact path="/login" component={Login} />
+          {/* <Route exact path="/login" component={Login} /> */}
+          <Route exact path="/login" component={login2} />
           <Route exact path="/rankingProblem/:id" component={RankingProblem} />
           <Route exact path="/ranking" component={Ranking} />
           
