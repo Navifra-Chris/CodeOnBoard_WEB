@@ -60,11 +60,6 @@ const navBarItems: Array<navItem> = [
       { value: "내가 푼 문제",
        to: "/problem/user/{user_id}",
         LinkComponent: withRouter(NavLink) },
-      // {
-      //   value: "Pricing Cards",
-      //   to: "/pricing-cards",
-      //   LinkComponent: withRouter(NavLink),
-      // },
     ],
   },
   {
@@ -91,12 +86,9 @@ const accountDropdownProps = {
   // description: "Administrator",
   options: [
     { icon: "user", value: "Profile" },
-    { icon: "settings", value: "Settings" },
-    { icon: "mail", value: "Inbox", badge: "6" },
-    { icon: "send", value: "Message" },
     { isDivider: true },
-    { icon: "help-circle", value: "Need help?" },
-    { icon: "log-out", value: "Sign out" },
+    { icon: "log-in", value: "login" , to: "/login"}
+    // { icon: "log-out", value: "Sign out" },
   ],
 };
 
