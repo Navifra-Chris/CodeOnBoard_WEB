@@ -11,15 +11,13 @@ import SelfBattle from "./selfBattle/selfBattle.react"
 
 function CodeList({match}) {
     const dispatch = useDispatch();
-    const userId = 2
+    const userId = localStorage.getItem("pk")
     const _problemId = 1
     // const problemId = document.location.href.split("codelist/")[1]
     const { codeList } = useSelector(state => ({ 
         codeList: state.codeList.codeList,
     }))
-    const header = {
-        'Authorization' : 'jwt ' + window.localStorage.getItem('jwt')
-        }
+    
     var _list = codeList!==null?
         <Table.Body>{codeList.map(code => {
             return(
@@ -45,6 +43,18 @@ function CodeList({match}) {
                     </Button>
                 </Table.Col>
                 <Table.Col className="tb">
+                    <Button disabled color="primary" onClick={()=>{
+                        axios
+                        .delete(`https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/code/${code.id}`,{})
+                        .then(response =>{
+                            alert("삭제 완료")
+                        })
+                        .catch( () =>{
+                        })
+                    }}>삭제
+                    </Button>
+                </Table.Col>
+                <Table.Col className="tb">
                     <SelfBattle available={code.available_game} problemId={_problemId} codeId={code.id}></SelfBattle>
                 </Table.Col>
             </Table.Row>
@@ -56,8 +66,8 @@ function CodeList({match}) {
     
     function getCodeList(){
         console.log("==> getcodelist");
-        // axios.get(`http://203.246.112.32:8000/api/v1/code/?author=${userId}&problem=${_problemId}`)
-        axios.get(`http://203.246.112.32:8000/api/v1/code/?problem=${_problemId}`, {headers:header})
+        axios.get(`http://203.246.112.32:8000/api/v1/code/?author=${userId}&problem=${_problemId}`)
+        // axios.get(`http://203.246.112.32:8000/api/v1/code/?problem=${_problemId}`)
         .then(response => {
             dispatch(Action.setCodeList(response.data.results))
             // console.log(Object.keys(codeList).length);
@@ -83,6 +93,7 @@ function CodeList({match}) {
                                 <Table.ColHeader className="cth">언어</Table.ColHeader>
                                 <Table.ColHeader className="cth">게임 가능 여부</Table.ColHeader>
                                 <Table.ColHeader className="cth">수정</Table.ColHeader>
+                                <Table.ColHeader className="cth">삭제</Table.ColHeader>
                                 <Table.ColHeader className="cth">코드와 대전하기</Table.ColHeader>
                                 </tr>
                             </Table.Header>

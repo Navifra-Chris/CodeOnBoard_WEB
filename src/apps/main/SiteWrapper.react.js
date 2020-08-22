@@ -14,6 +14,8 @@ import {
 
 import type { NotificationProps } from "tabler-react";
 
+const isStaff = localStorage.getItem("pk")
+
 type Props = {|
   +children: React.Node,
 |};
@@ -40,7 +42,17 @@ type navItem = {|
   +useExact?: boolean,
 |};
 
-const navBarItems: Array<navItem> = [
+const logout = () =>{
+  localStorage.removeItem("jwt");
+  localStorage.removeItem("userName");
+  localStorage.removeItem("pk");
+  localStorage.removeItem("problemId");
+
+}
+var navBarItems: Array<nvaItem> 
+
+isStaff!=="1"?
+navBarItems = [
   {
     value: "Home",
     to: "/",
@@ -78,16 +90,65 @@ const navBarItems: Array<navItem> = [
     to: "/ranking",
     LinkComponent: withRouter(NavLink),
   },
+
+]
+:
+navBarItems= [
+  {
+    value: "Home",
+    to: "/",
+    icon: "home",
+    LinkComponent: withRouter(NavLink),
+    useExact: true,
+  },
+  {
+    value: "Problem",
+    icon: "grid",
+    subItems: [
+      {
+        value: "모든 문제",
+        to: "/problem",
+        LinkComponent: withRouter(NavLink),
+      },
+      { value: "내가 푼 문제",
+       to: "/problem/user/{user_id}",
+        LinkComponent: withRouter(NavLink) },
+    ],
+  },
+  {
+    value: "Community",
+    icon: "message-square",
+    subItems: [
+      { value: "Maps", to: "/maps", LinkComponent: withRouter(NavLink) },
+      { value: "Icons", to: "/icons", LinkComponent: withRouter(NavLink) },
+      { value: "Store", to: "/store", LinkComponent: withRouter(NavLink) },
+      { value: "Blog", to: "/blog", LinkComponent: withRouter(NavLink) },
+    ],
+  },
+  {
+    value: "Ranking",
+    icon: "thumbs-up",
+    to: "/ranking",
+    LinkComponent: withRouter(NavLink),
+  },
+
+  {
+    value: "Add Game",
+    icon: "file-plus",
+    to: "/addGame",
+    LinkComponent: withRouter(NavLink),
+  }
+
 ];
 
 const accountDropdownProps = {
   avatarURL: "",
-  name: "Guest",
+  name: localStorage.getItem("userName")===null? "Guest" : localStorage.getItem("userName"),
   // description: "Administrator",
   options: [
     { icon: "user", value: "Profile" },
     { isDivider: true },
-    { icon: "log-in", value: "login" , to: "/login"}
+    localStorage.getItem("userName")===null? { icon: "log-in", value: "login" , to: "/login"} :{ icon: "log-out", value: "Sign out", to: "/", onClick:()=>{ console.log("log out"); logout(); }}
     // { icon: "log-out", value: "Sign out" },
   ],
 };
@@ -140,7 +201,7 @@ class SiteWrapper extends React.Component<Props, State> {
         headerProps={{
           href: "/",
           alt: "Code On Board",
-          imageURL: "",
+          imageURL: "assets/images",
           notificationsTray: {
             notificationsObjects,
             markAllAsRead: () =>

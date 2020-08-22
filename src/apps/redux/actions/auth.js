@@ -8,6 +8,7 @@ export function loginUserSuccess(token) {
 export function loginUser(username, password) {
   return async function (dispatch) {
     try {
+      console.log("return")
       const response = await obtainToken(username, password);
       dispatch(loginUserSuccess(response.data.access));
     } catch (error) {
@@ -21,8 +22,10 @@ export function logoutUserSuccess() {
 }
 
 export function logoutUser() {
+  console.log("== logout user")
   return async function (dispatch) {
-    await logout();
+    console.log("return")
+    await logout(localStorage.getItem("jwt"));
     dispatch(logoutUserSuccess());
   };
 }

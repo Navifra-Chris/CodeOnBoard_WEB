@@ -20,7 +20,7 @@ require('codemirror/mode/clike/clike.js');
 function CodeEditor(props)  {
     const dispatch = useDispatch();
     const problemId = document.location.href.split("problem/")[1]
-    const userId = 2
+    const userId = localStorage.getItem("pk")
     const mode = props.mode;
     const { code, codeName, language, editor } = useSelector(
       state => ({
@@ -33,14 +33,8 @@ function CodeEditor(props)  {
     );
     const languageList = {"Python": 1, "C": 2, "C++": 3}
     const languageList2 = {1: "Python", 2: "C", 3: "C++"}
-
-    let button;
-    if(mode === "post"){
-      button = <Button onClick={codePost}>제출</Button>
-    }
-    else if(mode === "update"){
-      button = <Button onClick={codePatch}>수정</Button>
-    }
+    
+    const button = <Button onClick={codePost}>제출</Button>
 
     function codePost(){
       var data = {
@@ -52,32 +46,14 @@ function CodeEditor(props)  {
       }
       console.log("Post data==>", data)
       axios
-      .post("https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/code/", data) // TODO: header 추가
+      .post("https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/code/", data) 
       .then(response =>{
+        dispatch(Action.submit(true))
         window.scrollTo(0, 0)
       })
       .catch(error => {
         alert("제출 실패")
       })
-    }
-
-    function codePatch(){
-      var data = {
-        author: userId,
-        code : code,
-        language : languageList[language],
-        problem: problemId,
-        name : codeName
-      }
-      axios.patch(`https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/code/${window.sessionStorage.getItem("selectedCodeId")}/`, data)
-      .then(response => {
-        window.scrollTo(0, 0)
-        alert("수정 완료")
-      })
-      .catch(error => {
-        alert("수정 실패")
-      })
-      
     }
 
     React.useEffect(() =>{

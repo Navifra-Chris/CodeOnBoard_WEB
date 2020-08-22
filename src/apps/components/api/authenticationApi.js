@@ -11,12 +11,11 @@ export async function signUp(email, username, password) {
 }
 
 export async function obtainToken(username, password) {
-  
   const response = await axiosAPI.post("rest-auth/login/", {
     username,
     password,
   });
-  console.log("===> obtainToken", response)
+  console.log("===> rest-auth/login/", response)
   setNewHeaders(response);
   return response;
 }
@@ -31,8 +30,12 @@ export async function refreshToken(refresh) {
 
 // eslint-disable-next-line
 export async function logout(accessToken) {
-  localStorage.removeItem("access_token");
+  console.log("Log out")
+  localStorage.removeItem("jwt");
   localStorage.removeItem("refresh_token");
+  localStorage.removeItem("userName");
+  localStorage.removeItem("pk");
+  
   // TODO: invalidate token on backend
 }
 

@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { loginUser } from "../../redux/actions/auth";
+import { LoginPage as TablerLoginPage } from "tabler-react";
+import { useHistory } from "react-router-dom";
 
 const LoginPage = ({ loginUser, history }) => {
   const [state, setState] = useState({
-    username: "",
+    email: "",
     password: "",
   });
 
@@ -17,37 +19,23 @@ const LoginPage = ({ loginUser, history }) => {
   const login = async (event) => {
     console.log("======login")
     event.preventDefault();
-    const { username, password } = state;
+    // const _history = useHistory();
+    const { email, password } = state;
 
-    await loginUser(username, password);
+    await loginUser(email, password);
+    // _history.push("/")
     history.push("/");
+    window.location.reload(false);
   };
 
   return (
-    <div>
-      <h1>Login page</h1>
-      <form onSubmit={login}>
-        <label>
-          Username:
-          <input
-            name="username"
-            type="text"
-            value={state.username}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Password:
-          <input
-            name="password"
-            type="password"
-            value={state.password}
-            onChange={handleChange}
-          />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+   
+    <TablerLoginPage
+      strings={{ emailLabel:"ID", emailPlaceholder:"Enter ID"}}
+      onSubmit={login}
+      onChange={handleChange}
+    />
+  
   );
 };
 
