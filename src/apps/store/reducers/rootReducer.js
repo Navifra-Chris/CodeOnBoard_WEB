@@ -5,6 +5,7 @@ import codeList from './codeList.reducer'
 import replay from './replay.reducer'
 import rankingProblem from './rankingProblem.reducer'
 import auth from "../../redux/reducers/auth"
+import addProblem from "../reducers/addProblem.reducer"
 
 const rootReducer = combineReducers({
   auth,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   match,
   codeList,
   replay,
-  rankingProblem
+  rankingProblem,
+  addProblem
 });
 
 export default rootReducer;

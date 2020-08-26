@@ -79,3 +79,7 @@
 .th{
   background-color: lightgray;
 }
+
+.input{
+  max-width: 300px;
+}
