@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import axios from 'axios';
-import { Nav, Page, Form} from "tabler-react";
+import { Nav, Page, Button} from "tabler-react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import SiteWrapper from "../SiteWrapper.react";
 import * as Action from "../../store/actions/addProblem.action"
@@ -15,6 +15,7 @@ function AddProblem({match}) {
     const { selectedStone } = useSelector(state => ({
         selectedStone: state.addProblem.selectedStone
     }))
+    
 
     return(
         <SiteWrapper>
@@ -27,7 +28,7 @@ function AddProblem({match}) {
                     <Nav.Item onClick={()=>dispatch(Action.selectStone(3))}> 4번 돌</Nav.Item>
                 </Nav>
                 <Stone selectedStone={selectedStone}></Stone>
-                
+                {/* <Button className="mt-5">문제 만들기</Button> */}
             </Page.Content>
             
         </SiteWrapper>

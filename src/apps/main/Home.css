@@ -83,3 +83,12 @@
 .input{
   max-width: 300px;
 }
+
+.input-sm{
+  max-width: 70px;
+  max-height: 24px;
+}
+
+.pl-12{
+  padding-left: 12px;
+}
