@@ -3,16 +3,26 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import * as Action from "../../../store/actions/addProblem.action"
 import { Text, Grid, Form, Button} from "tabler-react";
 import "../../Home.css"
+import axios from 'axios';
 
 function Stone(props){
     const dispatch = useDispatch();
+    const userId = localStorage.getItem("pk")
 
-    const { placementRule, placementDir, length1, length2 } = useSelector(state => ({
+    const { problemName, limitTime, limitMemory, initBoard, desc, thumbnail, placementRule, placementDir, length1, length2, placementRule2 } = useSelector(state => ({
+        problemName:state.addProblem.problemName,
+        limitTime:state.addProblem.limitTime,
+        limitMemory:state.addProblem.limitMemory,
+        initBoard:state.addProblem.initBoard,
+        desc:state.addProblem.desc,
+        thumbnail:state.addProblem.thumbnail,
         placementRule:state.addProblem.rules[props.selectedStone].placementRule,
+        // placementRule2:state.addProblem.rules[1].placementRule,
         endingRule:state.addProblem.endingRule,
         length1:state.addProblem.rules[props.selectedStone].length1,
         length2:state.addProblem.rules[props.selectedStone].length2,
     }));
+
 
     var placementDircomp = null
 
@@ -132,7 +142,52 @@ function Stone(props){
                             </Form.Group>
                         </React.Fragment>
     }
-                                            
+    
+    function ex(){
+        var frm = new FormData();
+        frm.append("editor", 1);
+        frm.append("title", "asd");
+        for (var pair of frm.entries()){
+			console.log(pair[0] + ',' + pair[1], pair);
+		}
+    }
+    function problemPost(userId, rule){
+		var header = {
+		  'Authorization' : 'jwt ' + window.localStorage.getItem('jwt'),
+		  'Content-Type': 'multipart/form-data'
+		}
+		var frm = new FormData();
+		// var inFile = document.getElementsByName("file");
+		frm.append("editor", userId);
+		frm.append("title", problemName);
+		frm.append("description", desc);
+		frm.append("limit_time", limitTime);
+		frm.append("limit_memory", limitMemory);
+		// frm.append("thumbnail", inFile[0].files[0]);
+		frm.append("board_info", initBoard);
+		frm.append("rule",rule);
+		
+		for (var pair of frm.entries()){
+			console.log(pair[0] + ',' + pair[1]);
+		}
+
+		//console.log(inFile[0].files[0])
+		
+	  
+		axios.post("https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/problem/", frm, {
+		  headers: header
+		  
+		})
+		.then( response => {
+			alert("문제가 생성되었습니다.");
+			console.log(response);
+		})
+		.catch(error => {
+			alert(error);
+			console.log(error);
+		})
+    }
+
     
     return(
         <React.Fragment>
@@ -141,7 +196,9 @@ function Stone(props){
                 <Grid.Col>
                     <Text size="h2" className="mt-5">착수 규칙</Text>
                     <Form.Group label="착수 종류" className="mr-4">
-                        <Form.Radio label="이동" value="option1" name="kind" onChange={()=> {dispatch(Action.selectPlacementRule(props.selectedStone,0))}}/>
+                        <Form.Radio 
+                            // checked={isChecked}
+                            label="이동" value="option1" name="kind" onChange={()=> {dispatch(Action.selectPlacementRule(props.selectedStone,0))}}/>
                         <Form.Radio label="추가" value="option2" name="kind" onChange={()=> {dispatch(Action.selectPlacementRule(props.selectedStone,1))}}/>
                         <Form.Radio label="둘다" value="option3" name="kind" onChange={()=> {dispatch(Action.selectPlacementRule(props.selectedStone,2))}}/>
                     </Form.Group>
@@ -174,7 +231,7 @@ function Stone(props){
                     </Form.Group>
                 </Grid.Col> */}
             </Grid.Row>
-            <Button className="mt-4" color="primary">문제 만들기</Button>
+            <Button className="mt-4" color="primary" onClick={problemPost}>문제 만들기</Button>
         </React.Fragment>
     )
     

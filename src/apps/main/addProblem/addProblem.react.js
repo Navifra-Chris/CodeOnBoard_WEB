@@ -1,7 +1,6 @@
 // @flow
 
 import * as React from "react";
-import axios from 'axios';
 import { Nav, Page, Button} from "tabler-react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import SiteWrapper from "../SiteWrapper.react";

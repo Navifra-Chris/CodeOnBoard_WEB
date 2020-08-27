@@ -1,4 +1,10 @@
 import { 
+    SET_PROBLEM_NAME,
+    SET_LIMIT_TIME,
+    SET_LIMIT_MEMORY,
+    SET_INIT_BOARD,
+    SET_DESC,
+    SET_THUMBNAIL2,
     SELECT_STONE,
     SELECT_PLACEMENT_RULE,
     SELECT_PLACEMENT_DIR,
@@ -14,8 +20,9 @@ const initStata = {
     problemName : null,
     limitTime : null,
     limitMemory : null,
-    boardSize : null,
     initBoard : null,
+    desc:null,
+    thumbnail2:null,
     selectedStone: 0,
     rules: [
         {
@@ -65,6 +72,18 @@ const initStata = {
 const addProblem
  = (state = initStata, action) => {
     switch(action.type){
+        case SET_PROBLEM_NAME:
+            return {...state, problemName:action.payload}
+        case SET_LIMIT_TIME:
+            return {...state, limitTime:action.payload}
+        case SET_LIMIT_MEMORY:
+            return {...state, limitMemory:action.payload}
+        case SET_INIT_BOARD:
+            return {...state, initBoard:action.payload}
+        case SET_DESC:
+            return {...state, desc:action.payload}
+        case SET_THUMBNAIL2:
+            return {...state, thumbnail2:action.payload}
         case SELECT_STONE:
             return {...state, selectedStone:action.payload};
         case SELECT_PLACEMENT_RULE:
