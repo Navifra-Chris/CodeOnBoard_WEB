@@ -133,9 +133,9 @@ navBarItems= [
   },
 
   {
-    value: "Add Game",
+    value: "Add Problem",
     icon: "file-plus",
-    to: "/addGame",
+    to: "/addProblem",
     LinkComponent: withRouter(NavLink),
   }
 

@@ -11,7 +11,7 @@ import Login from "./components/authentication/LoginPage"
 import Ranking from "./main/ranking.react"
 import "tabler-react/dist/Tabler.css";
 import RankingProblem from "./main/rankingProblem/rankingProblem.react";
-import AddGame from "./main/addGame/addGame.react"
+import AddProblem from "./main/addProblem/addProblem.react"
 // import test from "./test.js"
 
 function App(props: Props): React.Node {
@@ -29,7 +29,7 @@ function App(props: Props): React.Node {
           <Route exact path="/login" component={Login} />
           <Route exact path="/rankingProblem/:id" component={RankingProblem} />
           <Route exact path="/ranking" component={Ranking} />
-          <Route exact path="/addGame" component={AddGame} />
+          <Route exact path="/addProblem" component={AddProblem} />
           {/* <Route exact path="/test" component={test} /> */}
           
         </Switch>
