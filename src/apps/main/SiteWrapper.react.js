@@ -201,7 +201,7 @@ class SiteWrapper extends React.Component<Props, State> {
         headerProps={{
           href: "/",
           alt: "Code On Board",
-          imageURL: "assets/images",
+          imageURL: "http://localhost:3000/assets/images/logos/COB-B.png",
           notificationsTray: {
             notificationsObjects,
             markAllAsRead: () =>
@@ -229,33 +229,33 @@ class SiteWrapper extends React.Component<Props, State> {
         navProps={{ itemsObjects: navBarItems }}
         routerContextComponentType={withRouter(RouterContextProvider)}
         footerProps={{
-          links: [
-            <a href="#">First Link</a>,
-            <a href="#">Second Link</a>,
-            <a href="#">Third Link</a>,
-            <a href="#">Fourth Link</a>,
-            <a href="#">Five Link</a>,
-            <a href="#">Sixth Link</a>,
-            <a href="#">Seventh Link</a>,
-            <a href="#">Eigth Link</a>,
-          ],
+          // links: [
+          //   <a href="#">First Link</a>,
+          //   <a href="#">Second Link</a>,
+          //   <a href="#">Third Link</a>,
+          //   <a href="#">Fourth Link</a>,
+          //   <a href="#">Five Link</a>,
+          //   <a href="#">Sixth Link</a>,
+          //   <a href="#">Seventh Link</a>,
+          //   <a href="#">Eigth Link</a>,
+          // ],
           note:
-            "Premium and Open Source dashboard template with responsive and high quality UI. For Free!",
-          copyright: (
-            <React.Fragment>
-              Copyright © 2019
-              <a href="."> Tabler-react</a>. Theme by
-              <a
-                href="https://codecalm.net"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {" "}
-                codecalm.net
-              </a>{" "}
-              All rights reserved.
-            </React.Fragment>
-          ),
+            "Enjoy a lot of games!",
+          // copyright: (
+          //   <React.Fragment>
+          //     Copyright © 2019
+          //     <a href="."> Tabler-react</a>. Theme by
+          //     <a
+          //       href="https://codecalm.net"
+          //       target="_blank"
+          //       rel="noopener noreferrer"
+          //     >
+          //       {" "}
+          //       codecalm.net
+          //     </a>{" "}
+          //     All rights reserved.
+          //   </React.Fragment>
+          // ),
           nav: (
             <React.Fragment>
               <Grid.Col auto={true}>
