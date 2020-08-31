@@ -5,6 +5,8 @@ import {
     WIRTE_CODENAME,
     SET_LANGUAGE,
     SET_EDITOR,
+    SET_TITLE,
+    SET_ID,
 } from '../actions/problem.action';
 
 const initState = {
@@ -14,6 +16,8 @@ const initState = {
     codeName : null,
     language : "Select Language",
     editor: null,
+    title:null,
+    id: null,
 }
 
 const problem = (state = initState, action) => {
@@ -31,6 +35,10 @@ const problem = (state = initState, action) => {
             return {...state, language:action.payload}
         case SET_EDITOR:
             return {...state, editor:action.payload}
+        case SET_TITLE:
+            return {...state, title:action.payload}
+        case SET_ID:
+            return {...state, id:action.payload}
         default:
             return state;
     }

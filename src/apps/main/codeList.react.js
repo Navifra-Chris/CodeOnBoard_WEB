@@ -12,10 +12,13 @@ import SelfBattle from "./selfBattle/selfBattle.react"
 function CodeList({match}) {
     const dispatch = useDispatch();
     const userId = localStorage.getItem("pk")
-    const _problemId = 1
     // const problemId = document.location.href.split("codelist/")[1]
     const { codeList } = useSelector(state => ({ 
         codeList: state.codeList.codeList,
+    }))
+
+    const { problemId } = useSelector(state => ({
+        problemId:state.problem.id
     }))
     
     var _list = codeList!==null?
@@ -55,7 +58,7 @@ function CodeList({match}) {
                     </Button>
                 </Table.Col>
                 <Table.Col className="tb">
-                    <SelfBattle available={code.available_game} problemId={_problemId} codeId={code.id}></SelfBattle>
+                    <SelfBattle available={code.available_game} problemId={problemId} codeId={code.id}></SelfBattle>
                 </Table.Col>
             </Table.Row>
             )
@@ -66,8 +69,8 @@ function CodeList({match}) {
     
     function getCodeList(){
         console.log("==> getcodelist");
-        axios.get(`http://203.246.112.32:8000/api/v1/code/?author=${userId}&problem=${_problemId}`)
-        // axios.get(`http://203.246.112.32:8000/api/v1/code/?problem=${_problemId}`)
+        axios.get(`http://203.246.112.32:8000/api/v1/code/?author=${userId}&problem=${problemId}`)
+        // axios.get(`http://203.246.112.32:8000/api/v1/code/?problem=${problemId}`)
         .then(response => {
             dispatch(Action.setCodeList(response.data.results))
             // console.log(Object.keys(codeList).length);
@@ -83,7 +86,7 @@ function CodeList({match}) {
     return(
         <SiteWrapper>
             <Page.Content>
-                <ProblemNav id={match.params.id} />
+                <ProblemNav id={problemId} />
                     <Card className="mt-4">
                         <Table>
                             <Table.Header className="th">

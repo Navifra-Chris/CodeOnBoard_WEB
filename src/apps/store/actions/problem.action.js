@@ -4,6 +4,8 @@ export const WRITE_CODE = "WRITE_CODE"
 export const WIRTE_CODENAME = "WIRTE_CODENAME"
 export const SET_LANGUAGE = "SET_LANGUAGE"
 export const SET_EDITOR = "SET_EDITOR"
+export const SET_TITLE = "SET_TITLE"
+export const SET_ID = "SET_ID"
 
 export function submit(param){
     return {
@@ -41,6 +43,20 @@ export function setLanguage(param){
 export function setEditor(param){
     return {
         type: SET_EDITOR,
+        payload: param
+    };
+}
+
+export function setTitle(param){
+    return {
+        type: SET_TITLE,
+        payload: param
+    };
+}
+
+export function setId(param){
+    return {
+        type: SET_ID,
         payload: param
     };
 }

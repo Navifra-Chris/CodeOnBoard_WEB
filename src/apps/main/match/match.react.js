@@ -7,6 +7,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import SiteWrapper from "../../main/SiteWrapper.react"
 import ProblemNav from "../../main/problemNav.react"
 import * as Action from "../../store/actions/match.action"
+import * as pAction from "../../store/actions/problem.action"
 import { call, delay } from 'redux-saga/effects'
 import "../../../../node_modules/tabler-react/dist/Tabler.css"
 import "../Home.css"
@@ -58,6 +59,9 @@ function Match({match}) {
         shallowEqual
       );
     
+    const { title } = useSelector(state => ({
+        title:state.problem.title
+    }))
     var loader = <Text className="mb-4 strong">{gameStatus}</Text>
     
     function getProblem(problemId){
@@ -67,6 +71,7 @@ function Match({match}) {
         .then(response =>{
             problem = response.data
             dispatch(Action.setThumbnail(problem.thumbnail))
+            dispatch(pAction.setTitle(response.data.title))
         })
         .catch( () =>{
 
@@ -218,14 +223,13 @@ function Match({match}) {
                                 <Text className="mt-1" size="h4">Tier : {tier}</Text>
                                 <Text className="mt-1" size="h4">Score : {score}</Text>
                                 <Text className="mt-1" size="h4">Language : {language}</Text>
-                                <Text className="mt-1" size="h4">Win : (value)</Text>
-                                <Text className="mt-1" size="h4">Lose : (value)</Text>
+                                <Text className="mt-1" size="h4">Win : 21</Text>
+                                <Text className="mt-1" size="h4">Lose : 15</Text>
                             </Card>
                         </Grid.Col>
                         <Grid.Col>
-                        
                             <Card xl={4} className="modal-dialog-centered p-card">
-                                <Text className="mt-1" size="h2">(Problem name)</Text>
+                                <Text className="mt-1" size="h2">{title}</Text>
                                 <GalleryCard className="p-0">
                                     <GalleryCard.Image
                                         src={thumbnail}>       
@@ -266,8 +270,8 @@ function Match({match}) {
                                 <Text className="mt-1" size="h4">Tier : {tier2}</Text>
                                 <Text className="mt-1" size="h4">Score : {score2}</Text>
                                 <Text className="mt-1" size="h4">Language : {language2}</Text>
-                                <Text className="mt-1" size="h4">Win : (value)</Text>
-                                <Text className="mt-1" size="h4">Lose : (value)</Text>
+                                <Text className="mt-1" size="h4">Win : 22</Text>
+                                <Text className="mt-1" size="h4">Lose : 20</Text>
                             </Card>
                         </Grid.Col>
                     </Grid.Row>

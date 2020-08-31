@@ -32,6 +32,8 @@ function Problem( {match , history} ) {
         .get(`https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/problem/${problemId}`,{'access-control-allow-origin': '*'})
         .then(response =>{
             dispatch(Action.getDescription(response.data.description))
+            dispatch(Action.setTitle(response.data.title))
+            dispatch(Action.setId(response.data.id))
         })
     },[]);
 
