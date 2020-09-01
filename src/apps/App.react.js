@@ -12,6 +12,8 @@ import Ranking from "./main/ranking.react"
 import "tabler-react/dist/Tabler.css";
 import RankingProblem from "./main/rankingProblem/rankingProblem.react";
 import AddProblem from "./main/addProblem/addProblem.react"
+import AddProblem2 from "./main/addProblem/addProblem2.react"
+import AddProblem3 from "./main/addProblem/addProblem3.react"
 // import test from "./test.js"
 
 function App(props: Props): React.Node {
@@ -30,6 +32,8 @@ function App(props: Props): React.Node {
           <Route exact path="/rankingProblem/:id" component={RankingProblem} />
           <Route exact path="/ranking" component={Ranking} />
           <Route exact path="/addProblem" component={AddProblem} />
+          <Route exact path="/addProblem2" component={AddProblem2} />
+          <Route exact path="/addProblem3" component={AddProblem3} />
           {/* <Route exact path="/test" component={test} /> */}
           
         </Switch>

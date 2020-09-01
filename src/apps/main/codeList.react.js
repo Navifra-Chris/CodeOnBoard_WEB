@@ -13,6 +13,7 @@ function CodeList({match}) {
     const dispatch = useDispatch();
     const userId = localStorage.getItem("pk")
     // const problemId = document.location.href.split("codelist/")[1]
+    const languageList2 = {1: "Python", 2: "C", 3: "C++"}
     const { codeList } = useSelector(state => ({ 
         codeList: state.codeList.codeList,
     }))
@@ -32,7 +33,7 @@ function CodeList({match}) {
                     {`${code.date.split('T')[0]} ${code.date.split('T')[1].split('.')[0]}`}
                 </Table.Col>
                 <Table.Col className="tb">
-                    {`${code.language}`}
+                    {languageList2[code.language]}
                 </Table.Col>
                 <Table.Col className="tb">
                     {code.available_game===true?`가능`:`불가능`}

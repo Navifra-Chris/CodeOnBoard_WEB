@@ -32,12 +32,12 @@ function ViewReplayPage(props) {
 	const [open, setOpen] = React.useState(false);
 	
 	const handleOpen = () => {
-		// window.localStorage.setItem('game_id', props.tmp_id);
+		window.localStorage.setItem('selectedGameId', props.tmp_id);
 		setOpen(true);
 	};
 	
 	const handleClose = () => {
-		// window.localStorage.removeItem('game_id')
+		window.localStorage.removeItem('selectedGameId')
 		setOpen(false);
 	};
 
