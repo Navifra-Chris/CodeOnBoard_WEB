@@ -38,7 +38,7 @@ function Courses(props) {
 
 	const classes = useStyles(props);
 	var header = {
-		'Authorization' : 'jwt ' + window.localStorage.getItem('jwt_access_token')
+		'Authorization' : 'jwt ' + window.localStorage.getItem('jwt')
 	}
 	var objNum = null;
 	var rule = null;
@@ -237,7 +237,7 @@ function Courses(props) {
 
 	function problemPost(userId, problemTitle, limitTime, limitMemory, boardInfo, rule){
 		var header = {
-		  'Authorization' : 'jwt ' + window.localStorage.getItem('jwt_access_token'),
+		  'Authorization' : 'jwt ' + window.localStorage.getItem('jwt'),
 		  'Content-Type': 'multipart/form-data'
 		}
 		var frm = new FormData();
@@ -258,7 +258,7 @@ function Courses(props) {
 		//console.log(inFile[0].files[0])
 		
 	  
-		axios.post("https://cors-anywhere.herokuapp.com/http://203.246.112.32:8000/api/v1/problem/", frm, {
+		axios.post("http://203.246.112.32:8000/api/v1/problem/", frm, {
 		  headers: header
 		  
 		})
@@ -414,7 +414,7 @@ function Courses(props) {
 			</div>
 			<div className="mx-auto sm:px-256">
 			<Link className="font-medium"
-				to={'/apps/game/addgame'}>
+				to={'/addProblem2'}>
 				<Button
 					className="ml-9 mt-4"
 					style={{
@@ -433,7 +433,7 @@ function Courses(props) {
 			</Link>
 			　
 			<Link className="font-medium"
-				to={'/apps/game/problem'}>
+				to={'/problem'}>
 				<Button
 					className="mt-4"
 					style={{
