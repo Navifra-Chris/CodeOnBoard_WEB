@@ -12,7 +12,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^3.4.1",
     "codemirror": "^5.56.0",
-    "d3-scale": "^3.2.1",
+    "d3-scale": "^4.0.2",
     "formik": "^2.1.5",
     "local-cors-proxy": "^1.1.0",
     "phaser": "^3.24.1",
